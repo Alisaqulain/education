@@ -39,36 +39,36 @@ export default function WhyDifferent() {
   ]
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 to-white">
+    <section className="py-12 sm:py-16 md:py-24 bg-gradient-to-br from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 items-start lg:items-center">
           {/* Left Text */}
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <div className="order-2 lg:order-1">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
               Education Should Be Built on{' '}
               <span className="gradient-text">Trust — Not Just Numbers</span>
             </h2>
-            <div className="space-y-4 text-lg text-gray-700">
+            <div className="space-y-3 sm:space-y-4 text-base sm:text-lg text-gray-700">
               <div className="flex items-start">
-                <svg className="w-6 h-6 text-primary mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-primary mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 <p><strong className="text-gray-900">No misleading claims</strong> — We focus on real value, not inflated statistics</p>
               </div>
               <div className="flex items-start">
-                <svg className="w-6 h-6 text-primary mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-primary mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 <p><strong className="text-gray-900">Educator-respect model</strong> — Teachers are partners, not commodities</p>
               </div>
               <div className="flex items-start">
-                <svg className="w-6 h-6 text-primary mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-primary mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 <p><strong className="text-gray-900">Long-term quality focus</strong> — Building sustainable education ecosystems</p>
               </div>
               <div className="flex items-start">
-                <svg className="w-6 h-6 text-primary mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 text-primary mr-3 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 <p><strong className="text-gray-900">Transparent operations</strong> — Clear processes, honest communication</p>
@@ -77,17 +77,17 @@ export default function WhyDifferent() {
           </div>
 
           {/* Right Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6 order-1 lg:order-2">
             {rightCards.map((card, index) => (
               <div
                 key={index}
-                className="bg-white p-6 rounded-xl border border-gray-200 card-hover"
+                className="bg-white p-5 sm:p-6 rounded-xl border border-gray-200 card-hover"
               >
-                <div className="w-12 h-12 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center mb-4 text-white">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center mb-3 sm:mb-4 text-white">
                   {card.icon}
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">{card.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{card.description}</p>
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">{card.title}</h3>
+                <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">{card.description}</p>
               </div>
             ))}
           </div>

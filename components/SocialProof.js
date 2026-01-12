@@ -49,34 +49,34 @@ export default function SocialProof() {
     <section className="py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <div className="text-center mb-8 sm:mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 px-2 sm:px-0">
             Trusted by <span className="gradient-text">Educators & Learners</span>
           </h2>
         </div>
 
         {/* Trust Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
           {trustPoints.map((point, index) => (
             <div
               key={index}
-              className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-xl border border-gray-200 card-hover text-center"
+              className="bg-gradient-to-br from-gray-50 to-white p-5 sm:p-6 rounded-xl border border-gray-200 card-hover text-center"
             >
-              <div className="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4 text-white">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4 text-white">
                 {point.icon}
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">{point.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{point.description}</p>
+              <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">{point.title}</h3>
+              <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">{point.description}</p>
             </div>
           ))}
         </div>
 
         {/* Badge Row */}
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
           {badges.map((badge, index) => (
             <div
               key={index}
-              className="px-6 py-3 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-full text-gray-700 font-medium text-sm"
+              className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-full text-gray-700 font-medium text-xs sm:text-sm"
             >
               {badge}
             </div>
