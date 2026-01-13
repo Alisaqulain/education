@@ -49,30 +49,30 @@ export default function CoreValues() {
   ]
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section className="py-12 sm:py-16 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <div className="text-center mb-10 sm:mb-12 md:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 px-2 sm:px-0">
             Our <span className="gradient-text">Core Values</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-2 sm:px-0">
             The principles that guide everything we do at Edgen Institute
           </p>
         </div>
 
         {/* Values Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {values.map((value, index) => (
             <div
               key={index}
-              className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-xl border border-gray-200 card-hover"
+              className="bg-gradient-to-br from-gray-50 to-white p-5 sm:p-6 md:p-8 rounded-xl border border-gray-200 card-hover"
             >
-              <div className="w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center mb-4 text-white">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center mb-3 sm:mb-4 text-white">
                 {value.icon}
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{value.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{value.description}</p>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">{value.title}</h3>
+              <p className="text-sm sm:text-base text-gray-600 leading-relaxed">{value.description}</p>
             </div>
           ))}
         </div>

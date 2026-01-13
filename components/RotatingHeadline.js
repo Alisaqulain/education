@@ -31,13 +31,15 @@ export default function RotatingHeadline() {
 
   return (
     <span 
-      className={`gradient-text inline-block transition-all duration-500 ease-in-out ${
+      className={`gradient-text inline-block transition-all duration-500 ease-in-out break-words ${
         isVisible 
           ? 'opacity-100 translate-y-0' 
           : 'opacity-0 -translate-y-2'
       }`}
       style={{
-        animation: isVisible ? 'slideInUp 0.5s ease-out' : 'none'
+        animation: isVisible ? 'slideInUp 0.5s ease-out' : 'none',
+        wordBreak: 'break-word',
+        hyphens: 'auto'
       }}
     >
       {currentHeadline.text}

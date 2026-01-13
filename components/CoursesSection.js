@@ -39,14 +39,14 @@ export default function CoursesSection() {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 px-2 sm:px-0">
             Explore Our <span className="gradient-text">Courses</span>
           </h2>
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-2 sm:px-0 mb-4">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-2 sm:px-0 mb-3 sm:mb-4">
             Quality courses taught by verified educators
           </p>
-          <div className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-full">
-            <svg className="w-5 h-5 text-primary animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="inline-flex items-center space-x-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 rounded-full">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5 text-primary animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
-            <span className="text-primary font-semibold text-sm sm:text-base">Launching Soon</span>
+            <span className="text-primary font-semibold text-xs sm:text-sm md:text-base">Launching Soon</span>
           </div>
         </div>
 
