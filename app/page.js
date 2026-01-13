@@ -1,6 +1,7 @@
 import HeroNew from '@/components/HeroNew'
 import SocialProof from '@/components/SocialProof'
 import SubjectsSection from '@/components/SubjectsSection'
+import CoursesSection from '@/components/CoursesSection'
 import HowItWorksNew from '@/components/HowItWorksNew'
 import WhyDifferent from '@/components/WhyDifferent'
 import VisionMissionPreview from '@/components/VisionMissionPreview'
@@ -17,6 +18,7 @@ export default function Home() {
       <HeroNew />
       <SocialProof />
       <SubjectsSection />
+      <CoursesSection />
       <HowItWorksNew />
       <WhyDifferent />
       <VisionMissionPreview />

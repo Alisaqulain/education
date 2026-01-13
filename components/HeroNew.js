@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import RotatingHeadline from './RotatingHeadline'
 
 export default function HeroNew() {
   const subjects = ['Maths', 'English', 'Physics', 'Programming', 'More Subjects']
@@ -16,8 +17,9 @@ export default function HeroNew() {
           {/* Left Content */}
           <div className="text-center lg:text-left animate-fade-in order-2 lg:order-1">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight px-2 sm:px-0">
-              Learn. Teach. Grow —{' '}
-              <span className="gradient-text">From Anywhere in the World</span>
+              <RotatingHeadline />
+              <br className="hidden sm:block" />
+              <span className="text-gray-900 inline-block mt-2 sm:mt-0">— From Anywhere in the World</span>
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0 px-2 sm:px-0">
               Edgen Institute is a trusted education platform connecting passionate educators with learners through transparent, ethical, and technology-driven online learning.
@@ -83,10 +85,19 @@ export default function HeroNew() {
                 Join as a Teacher
               </Link>
               <Link
-                href="/about"
-                className="bg-white border-2 border-primary text-primary px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-primary hover:text-white transition-all duration-300 text-center text-sm sm:text-base"
+                href="/student-register"
+                className="bg-white border-2 border-secondary text-secondary px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-secondary hover:text-white transition-all duration-300 text-center text-sm sm:text-base inline-flex items-center justify-center space-x-2"
               >
-                Learn About Edgen
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                <span>Start Learning</span>
+              </Link>
+              <Link
+                href="/about"
+                className="bg-gray-100 border-2 border-gray-300 text-gray-700 px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:bg-gray-200 transition-all duration-300 text-center text-sm sm:text-base"
+              >
+                Learn More
               </Link>
             </div>
           </div>
