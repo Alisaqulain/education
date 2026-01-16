@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Footer() {
   return (
@@ -7,7 +8,20 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {/* About */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <h3 className="text-white text-lg sm:text-xl font-bold mb-3 sm:mb-4">Edgen Institute</h3>
+            <Link href="/" className="flex items-center space-x-2 sm:space-x-3 mb-3 sm:mb-4 group">
+              <div className="relative w-10 h-10 sm:w-12 sm:h-12">
+                <Image
+                  src="/logo.png"
+                  alt="Edgen Institute Logo"
+                  fill
+                  className="object-contain group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-white text-lg sm:text-xl font-bold leading-tight">Edgen Institute</span>
+                <span className="text-gray-400 text-xs hidden sm:block">Admission Hub</span>
+              </div>
+            </Link>
             <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
               Connecting passionate educators with learners through a transparent and trusted education ecosystem.
             </p>
