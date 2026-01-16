@@ -1,82 +1,139 @@
 import Link from 'next/link'
 
-export default function SubjectsSection() {
-  const subjectCategories = [
-    {
-      category: 'Languages',
-      subjects: ['English', 'Spanish', 'French', 'German'],
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-        </svg>
-      ),
-    },
-    {
-      category: 'Academic Subjects',
-      subjects: ['Maths', 'Physics', 'Chemistry'],
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
-      ),
-    },
-    {
-      category: 'Skills',
-      subjects: ['Programming', 'Digital Skills', 'More'],
-      icon: (
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-        </svg>
-      ),
-    },
-  ]
+const subjectCategories = [
+  {
+    category: 'Languages',
+    description: 'Learn from native speakers',
+    subjects: [
+      { name: 'English', teachers: 2500, icon: '🇬🇧' },
+      { name: 'Spanish', teachers: 1800, icon: '🇪🇸' },
+      { name: 'French', teachers: 1200, icon: '🇫🇷' },
+      { name: 'German', teachers: 900, icon: '🇩🇪' },
+      { name: 'Chinese', teachers: 800, icon: '🇨🇳' },
+      { name: 'Japanese', teachers: 600, icon: '🇯🇵' },
+    ],
+    gradient: 'from-blue-500 to-cyan-500',
+  },
+  {
+    category: 'Academic Subjects',
+    description: 'Expert tutors for all levels',
+    subjects: [
+      { name: 'Mathematics', teachers: 3200, icon: '📐' },
+      { name: 'Physics', teachers: 1500, icon: '⚛️' },
+      { name: 'Chemistry', teachers: 1400, icon: '🧪' },
+      { name: 'Biology', teachers: 1300, icon: '🔬' },
+      { name: 'History', teachers: 1100, icon: '📜' },
+      { name: 'Geography', teachers: 800, icon: '🌍' },
+    ],
+    gradient: 'from-green-500 to-emerald-500',
+  },
+  {
+    category: 'Programming & Tech',
+    description: 'Master modern technology',
+    subjects: [
+      { name: 'Python', teachers: 2000, icon: '🐍' },
+      { name: 'JavaScript', teachers: 1800, icon: '💻' },
+      { name: 'Web Development', teachers: 1600, icon: '🌐' },
+      { name: 'Data Science', teachers: 1200, icon: '📊' },
+      { name: 'Machine Learning', teachers: 900, icon: '🤖' },
+      { name: 'Java', teachers: 1100, icon: '☕' },
+    ],
+    gradient: 'from-purple-500 to-pink-500',
+  },
+  {
+    category: 'Arts & Skills',
+    description: 'Creative and professional skills',
+    subjects: [
+      { name: 'Music', teachers: 1500, icon: '🎵' },
+      { name: 'Art & Design', teachers: 1200, icon: '🎨' },
+      { name: 'Photography', teachers: 800, icon: '📷' },
+      { name: 'Writing', teachers: 1000, icon: '✍️' },
+      { name: 'Yoga', teachers: 600, icon: '🧘' },
+      { name: 'Fitness', teachers: 700, icon: '💪' },
+    ],
+    gradient: 'from-orange-500 to-red-500',
+  },
+]
 
+export default function SubjectsSection() {
   return (
-    <section className="py-16 md:py-24 bg-gray-50">
+    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 px-2 sm:px-0">
-            Explore Subjects <span className="gradient-text">We Support</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+            Explore <span className="gradient-text">250+ Subjects</span>
           </h2>
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-2 sm:px-0">
-            A growing network of educators ready to teach across diverse subjects
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+            Find expert teachers for any subject you want to learn
           </p>
         </div>
 
-        {/* Subject Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
+        {/* Subject Categories Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-10 sm:mb-12">
           {subjectCategories.map((category, index) => (
             <div
               key={index}
-              className="bg-white p-6 sm:p-8 rounded-xl border border-gray-200 card-hover"
+              className="bg-gradient-to-br from-gray-50 to-white rounded-2xl border-2 border-gray-100 hover:border-primary transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden"
             >
-              <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center mb-4 sm:mb-6 text-white">
-                {category.icon}
+              {/* Category Header */}
+              <div className={`bg-gradient-to-r ${category.gradient} p-6 text-white`}>
+                <h3 className="text-2xl font-bold mb-2">{category.category}</h3>
+                <p className="text-white/90 text-sm">{category.description}</p>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 sm:mb-4">{category.category}</h3>
-              <ul className="space-y-1.5 sm:space-y-2">
-                {category.subjects.map((subject, subIndex) => (
-                  <li key={subIndex} className="flex items-center text-sm sm:text-base text-gray-700">
-                    <svg className="w-4 h-4 text-primary mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    {subject}
-                  </li>
-                ))}
-              </ul>
+
+              {/* Subjects Grid */}
+              <div className="p-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  {category.subjects.map((subject, subIndex) => (
+                    <Link
+                      key={subIndex}
+                      href={`/subjects/${subject.name.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="group bg-white p-4 rounded-xl border-2 border-gray-100 hover:border-primary transition-all duration-300 hover:shadow-md text-center"
+                    >
+                      <div className="text-3xl sm:text-4xl mb-2 group-hover:scale-110 transition-transform duration-300">
+                        {subject.icon}
+                      </div>
+                      <div className="font-semibold text-gray-900 text-sm sm:text-base mb-1 group-hover:text-primary transition-colors">
+                        {subject.name}
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {subject.teachers}+ teachers
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
           ))}
         </div>
 
+        {/* Popular Subjects Quick Access */}
+        <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-2xl p-6 sm:p-8 border border-primary/20">
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 text-center">
+            Popular Subjects Right Now
+          </h3>
+          <div className="flex flex-wrap gap-3 justify-center">
+            {['Mathematics', 'English', 'Programming', 'Spanish', 'Physics', 'Chemistry', 'French', 'Web Development'].map((subject, index) => (
+              <Link
+                key={index}
+                href={`/subjects/${subject.toLowerCase().replace(/\s+/g, '-')}`}
+                className="px-5 py-2.5 bg-white border-2 border-gray-200 text-gray-700 rounded-full font-medium hover:border-primary hover:text-primary hover:bg-primary/5 transition-all duration-300 shadow-sm hover:shadow-md"
+              >
+                {subject}
+              </Link>
+            ))}
+          </div>
+        </div>
+
         {/* CTA */}
-        <div className="text-center">
+        <div className="text-center mt-10 sm:mt-12">
           <Link
-            href="/register"
-            className="inline-flex items-center space-x-2 bg-gradient-to-r from-primary to-secondary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-sm sm:text-base"
+            href="/subjects"
+            className="inline-flex items-center space-x-2 bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-xl font-bold text-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
           >
-            <span>Apply to Teach Your Subject</span>
-            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span>View All Subjects</span>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </Link>
@@ -85,4 +142,3 @@ export default function SubjectsSection() {
     </section>
   )
 }
-

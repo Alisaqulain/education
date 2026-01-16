@@ -42,7 +42,7 @@ export default function Hero() {
           <div className="flex justify-center lg:justify-end animate-slide-up">
             <div className="relative w-64 h-64 md:w-80 md:h-80">
               <Image
-                src="/logo.jpg"
+                src="/logo.png"
                 alt="Edgen Institute"
                 fill
                 className="object-contain drop-shadow-2xl"

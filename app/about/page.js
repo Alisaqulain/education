@@ -105,6 +105,43 @@ export default function About() {
       {/* Core Values */}
       <CoreValues />
 
+      {/* Company & Ownership */}
+      <section className="py-12 sm:py-16 md:py-24 bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 sm:mb-8 text-center px-2">
+            Company & <span className="gradient-text">Ownership</span>
+          </h2>
+          <div className="bg-white p-6 sm:p-8 md:p-12 rounded-xl sm:rounded-2xl border border-gray-200 shadow-lg">
+            <div className="prose prose-lg max-w-none text-gray-700 space-y-6">
+              <p className="text-base sm:text-lg leading-relaxed">
+                <strong className="text-gray-900">Edgen Institute – Admission Hub</strong> is a specialized education platform 
+                designed to connect passionate educators with learners worldwide. The platform focuses on ethical digital products 
+                and education technology solutions.
+              </p>
+              <p className="text-base sm:text-lg leading-relaxed">
+                <strong className="text-gray-900">Bizsun Creative</strong> is the parent brand and technology company that owns, 
+                operates, and maintains Edgen Institute. Bizsun Creative is committed to building transparent, trust-first digital 
+                products that prioritize user value over profit margins.
+              </p>
+              <p className="text-base sm:text-lg leading-relaxed">
+                Our mission extends beyond Edgen Institute—we're focused on creating ethical technology solutions that benefit 
+                educators, learners, and the broader education ecosystem. We believe in long-term value creation, transparent 
+                operations, and sustainable business models.
+              </p>
+              <div className="bg-gradient-to-r from-primary/10 to-secondary/10 p-4 rounded-lg border border-primary/20 mt-6">
+                <p className="text-sm sm:text-base text-gray-700">
+                  <strong className="text-gray-900">For corporate or legal inquiries:</strong><br />
+                  Contact Bizsun Creative at{' '}
+                  <a href="mailto:legal@bizsuncreative.com" className="text-primary hover:text-primary-dark font-semibold">
+                    legal@bizsuncreative.com
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Why Trust Us */}
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
