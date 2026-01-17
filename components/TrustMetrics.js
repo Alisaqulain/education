@@ -1,3 +1,53 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+import AnimatedSection from './AnimatedSection'
+
+function CountUp({ end, duration = 2000, suffix = '' }) {
+  const [count, setCount] = useState(0)
+  const [hasAnimated, setHasAnimated] = useState(false)
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setHasAnimated(true)
+          let start = 0
+          const increment = end / (duration / 16)
+          const timer = setInterval(() => {
+            start += increment
+            if (start >= end) {
+              setCount(end)
+              clearInterval(timer)
+            } else {
+              setCount(Math.floor(start))
+            }
+          }, 16)
+        }
+      },
+      { threshold: 0.5 }
+    )
+
+    if (ref.current) {
+      observer.observe(ref.current)
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current)
+      }
+    }
+  }, [end, duration, hasAnimated])
+
+  // Handle string numbers like "10,000+" and "4.9/5"
+  if (typeof end === 'string') {
+    return <span ref={ref}>{end}</span>
+  }
+
+  return <span ref={ref}>{Math.floor(count)}{suffix}</span>
+}
+
 export default function TrustMetrics() {
   const metrics = [
     {
@@ -57,38 +107,46 @@ export default function TrustMetrics() {
   ]
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-gray-50 to-white">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-gradient-to-b from-white via-gray-50 to-white overflow-hidden border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+        <AnimatedSection animation="fadeInDown" className="text-center mb-12 sm:mb-16">
+          <div className="inline-block mb-4 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-bold">
+            🏆 Trusted Platform
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
             Trusted by <span className="gradient-text">Millions Worldwide</span>
           </h2>
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Join thousands of students and teachers who trust Edgen Institute for quality education
           </p>
-        </div>
+        </AnimatedSection>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
           {metrics.map((metric, index) => (
-            <div
+            <AnimatedSection
               key={index}
-              className="bg-white p-6 sm:p-8 rounded-xl border-2 border-gray-100 hover:border-primary transition-all duration-300 shadow-sm hover:shadow-lg text-center group"
+              animation="scaleIn"
+              delay={index * 100}
             >
-              <div className="w-16 h-16 bg-gradient-to-r from-primary/10 to-secondary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary group-hover:scale-110 transition-transform duration-300">
-                {metric.icon}
+              <div className="bg-white p-4 sm:p-5 md:p-6 lg:p-8 rounded-xl sm:rounded-2xl border-2 border-gray-100 hover:border-primary transition-all duration-500 shadow-lg hover:shadow-2xl text-center group transform hover:-translate-y-2 sm:hover:-translate-y-3 hover:scale-105 relative overflow-hidden touch-manipulation">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 lg:w-20 lg:h-20 bg-gradient-to-r from-primary/15 to-secondary/15 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 md:mb-5 text-primary group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 shadow-md">
+                  {metric.icon}
+                </div>
+                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-2 sm:mb-3 gradient-text leading-tight">
+                  {metric.number}
+                </div>
+                <div className="text-xs sm:text-sm md:text-base text-gray-600 font-semibold leading-tight">
+                  {metric.label}
+                </div>
               </div>
-              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 gradient-text">
-                {metric.number}
-              </div>
-              <div className="text-sm sm:text-base text-gray-600 font-medium">
-                {metric.label}
-              </div>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
       </div>
     </section>
   )
 }
+
 
 

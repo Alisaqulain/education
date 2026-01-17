@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300">
+    <footer className="bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 text-gray-300 border-t border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {/* About */}
@@ -32,17 +32,17 @@ export default function Footer() {
             <h3 className="text-white text-base sm:text-lg font-semibold mb-3 sm:mb-4">Quick Links</h3>
             <ul className="space-y-1.5 sm:space-y-2">
               <li>
-                <Link href="/" className="hover:text-primary transition-colors duration-200 text-xs sm:text-sm">
+                <Link href="/" className="hover:text-primary hover:translate-x-1 transition-all duration-300 inline-block text-xs sm:text-sm">
                   Home
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-primary transition-colors duration-200 text-xs sm:text-sm">
+                <Link href="/about" className="hover:text-primary hover:translate-x-1 transition-all duration-300 inline-block text-xs sm:text-sm">
                   About
                 </Link>
               </li>
               <li>
-                <Link href="/register" className="hover:text-primary transition-colors duration-200 text-xs sm:text-sm">
+                <Link href="/register" className="hover:text-primary hover:translate-x-1 transition-all duration-300 inline-block text-xs sm:text-sm">
                   Register
                 </Link>
               </li>
@@ -54,7 +54,7 @@ export default function Footer() {
             <h3 className="text-white text-base sm:text-lg font-semibold mb-3 sm:mb-4">Legal</h3>
             <ul className="space-y-1.5 sm:space-y-2">
               <li>
-                <Link href="/legal/terms-and-conditions" className="hover:text-primary transition-colors duration-200 text-xs sm:text-sm text-gray-400">
+                <Link href="/legal/terms-and-conditions" className="hover:text-primary hover:translate-x-1 transition-all duration-300 inline-block text-xs sm:text-sm text-gray-400">
                   Terms & Conditions
                 </Link>
               </li>

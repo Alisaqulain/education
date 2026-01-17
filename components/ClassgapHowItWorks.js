@@ -1,3 +1,7 @@
+'use client'
+
+import AnimatedSection from './AnimatedSection'
+
 export default function ClassgapHowItWorks() {
   const steps = [
     {
@@ -31,57 +35,66 @@ export default function ClassgapHowItWorks() {
   ]
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-gradient-to-b from-white via-gray-50 to-white overflow-hidden border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-            How does Edgen Institute work?
+        <AnimatedSection animation="fadeInDown" className="text-center mb-16 sm:mb-20">
+          <div className="inline-block mb-4 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-bold">
+            🚀 Simple Process
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 text-gray-900">
+            How does <span className="gradient-text">Edgen Institute</span> work?
           </h2>
-          <p className="text-xl sm:text-2xl text-gray-600">
+          <p className="text-xl sm:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             It's easy! Live classes with an online private tutor
           </p>
-        </div>
+        </AnimatedSection>
 
-        <div className="space-y-16 sm:space-y-20">
+        <div className="space-y-12 sm:space-y-16 md:space-y-20">
           {steps.map((step, index) => (
-            <div
+            <AnimatedSection
               key={index}
-              className={`flex flex-col ${
-                index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-              } items-center gap-8 sm:gap-12`}
+              animation={index % 2 === 0 ? 'fadeInLeft' : 'fadeInRight'}
+              delay={index * 200}
             >
+              <div
+                className={`flex flex-col ${
+                  index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
+                } items-center gap-6 sm:gap-8 md:gap-12`}
+              >
               {/* Image */}
               <div className="flex-1 w-full">
-                <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl p-8 aspect-video flex items-center justify-center">
+                <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl sm:rounded-2xl p-6 sm:p-8 aspect-video flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-24 h-24 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4">
-                      <span className="text-4xl font-bold text-white">{step.number}</span>
+                    <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                      <span className="text-3xl sm:text-4xl font-bold text-white">{step.number}</span>
                     </div>
-                    <div className="text-gray-500 text-sm">{step.alt}</div>
+                    <div className="text-gray-500 text-xs sm:text-sm">{step.alt}</div>
                   </div>
                 </div>
               </div>
 
               {/* Content */}
               <div className="flex-1 w-full">
-                <div className="bg-white rounded-xl p-6 sm:p-8">
-                  <div className="text-6xl sm:text-7xl font-bold text-primary/20 mb-4">
+                <div className="bg-white rounded-xl p-5 sm:p-6 md:p-8 shadow-lg">
+                  <div className="text-5xl sm:text-6xl md:text-7xl font-bold text-primary/20 mb-3 sm:mb-4">
                     {step.number}
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
                     {step.title}
                   </h3>
-                  <p className="text-lg text-gray-600 leading-relaxed">
+                  <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
                     {step.description}
                   </p>
                 </div>
               </div>
-            </div>
+              </div>
+            </AnimatedSection>
           ))}
         </div>
       </div>
     </section>
   )
 }
+
 
 

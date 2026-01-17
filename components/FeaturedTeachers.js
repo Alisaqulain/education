@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import AnimatedSection from './AnimatedSection'
 
 const teachers = [
   {
@@ -77,27 +80,32 @@ const teachers = [
 
 export default function FeaturedTeachers() {
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-white to-gray-50">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+        <AnimatedSection animation="fadeInDown" className="text-center mb-12 sm:mb-16">
+          <div className="inline-block mb-4 px-4 py-2 bg-secondary/10 rounded-full text-secondary text-sm font-bold">
+            ⭐ Top Rated Educators
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
             Featured <span className="gradient-text">Teachers</span>
           </h2>
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Meet some of our top-rated educators ready to help you learn
           </p>
-        </div>
+        </AnimatedSection>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
           {teachers.map((teacher, index) => (
-            <div
+            <AnimatedSection
               key={index}
-              className="bg-white rounded-xl border-2 border-gray-100 hover:border-primary transition-all duration-300 shadow-sm hover:shadow-xl overflow-hidden group"
+              animation="fadeInUp"
+              delay={index * 100}
             >
+              <div className="bg-white rounded-xl sm:rounded-2xl border-2 border-gray-100 hover:border-primary transition-all duration-500 shadow-xl hover:shadow-2xl overflow-hidden group transform hover:-translate-y-3 sm:hover:-translate-y-4 hover:scale-105 relative touch-manipulation">
               {/* Teacher Image */}
-              <div className="relative h-48 bg-gradient-to-br from-primary/20 to-secondary/20">
+              <div className="relative h-48 sm:h-52 md:h-56 bg-gradient-to-br from-primary/20 via-secondary/20 to-primary/20 overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-24 h-24 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white text-3xl font-bold">
+                  <div className="w-28 h-28 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-2xl transform group-hover:scale-110 transition-transform duration-500">
                     {teacher.name.charAt(0)}
                   </div>
                 </div>
@@ -117,7 +125,7 @@ export default function FeaturedTeachers() {
               </div>
 
               {/* Teacher Info */}
-              <div className="p-6">
+              <div className="p-4 sm:p-5 md:p-6">
                 <div className="flex items-start justify-between mb-3">
                   <div>
                     <h3 className="text-lg font-bold text-gray-900 mb-1">{teacher.name}</h3>
@@ -166,19 +174,20 @@ export default function FeaturedTeachers() {
                 </div>
 
                 {/* CTA */}
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                   <Link
                     href={`/teachers/${teacher.name.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="flex-1 bg-gradient-to-r from-primary to-secondary text-white px-4 py-2.5 rounded-lg font-semibold hover:shadow-lg transition-all duration-300 text-center text-sm"
+                    className="flex-1 bg-gradient-to-r from-primary to-secondary text-white px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl font-bold hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 text-center text-xs sm:text-sm touch-manipulation"
                   >
                     View Profile
                   </Link>
-                  <button className="px-4 py-2.5 bg-white border-2 border-primary text-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-all duration-300 text-sm">
+                  <button className="w-full sm:w-auto px-4 sm:px-6 py-2.5 sm:py-3 bg-white border-2 border-primary text-primary rounded-lg sm:rounded-xl font-bold hover:bg-primary hover:text-white hover:scale-105 active:scale-95 transition-all duration-300 text-xs sm:text-sm shadow-md touch-manipulation">
                     Book Trial
                   </button>
                 </div>
               </div>
-            </div>
+              </div>
+            </AnimatedSection>
           ))}
         </div>
 
@@ -197,5 +206,6 @@ export default function FeaturedTeachers() {
     </section>
   )
 }
+
 
 

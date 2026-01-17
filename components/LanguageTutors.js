@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import AnimatedSection from './AnimatedSection'
 
 const languages = [
   { name: 'English', flag: '🇬🇧', teachers: 8823, code: 'en' },
@@ -13,39 +16,48 @@ const languages = [
 
 export default function LanguageTutors() {
   return (
-    <section className="py-12 sm:py-16 md:py-20 bg-white">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-gray-900">
-            Online language lessons with native tutors from all over the world
+        <AnimatedSection animation="fadeInDown" className="text-center mb-12 sm:mb-16">
+          <div className="inline-block mb-4 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-bold">
+            🌍 Global Learning
+          </div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
+            Online language lessons with <span className="gradient-text">native tutors</span>
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600">
-            Learn languages online with the world's best tutors
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Learn languages online with the world's best tutors from all over the world
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* Language Cards Grid */}
-        <div className="bg-gray-50 rounded-2xl p-6 sm:p-8 md:p-10">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
+        <div className="bg-gradient-to-br from-gray-50 via-white to-gray-50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 shadow-xl border border-gray-100">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
             {languages.map((language, index) => (
-              <Link
+              <AnimatedSection
                 key={index}
-                href={`/teachers?subject=${language.name}&language=true`}
-                className="group bg-white rounded-xl p-4 sm:p-6 border-2 border-gray-200 hover:border-primary transition-all duration-300 hover:shadow-lg text-center"
+                animation="scaleIn"
+                delay={index * 80}
               >
-                <div className="text-5xl sm:text-6xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                  {language.flag}
-                </div>
-                <div className="font-bold text-gray-900 mb-1 text-sm sm:text-base">
+                <Link
+                  href={`/teachers?subject=${language.name}&language=true`}
+                  className="group bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 border-2 border-gray-200 hover:border-primary transition-all duration-500 hover:shadow-2xl text-center transform hover:-translate-y-2 sm:hover:-translate-y-3 hover:scale-105 sm:hover:scale-110 relative overflow-hidden touch-manipulation"
+                >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                  <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-2 sm:mb-3 md:mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 drop-shadow-md">
+                    {language.flag}
+                  </div>
+                <div className="font-bold text-gray-900 mb-1 text-xs sm:text-sm md:text-base leading-tight">
                   {language.name} Tutors
                 </div>
-                <div className="text-xs sm:text-sm text-gray-600 mb-2">
+                <div className="text-xs text-gray-600 mb-1 sm:mb-2 leading-tight">
                   Online {language.name} tutors
                 </div>
-                <div className="text-lg sm:text-xl font-bold text-primary">
+                <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-primary">
                   {language.teachers.toLocaleString()} teachers
                 </div>
               </Link>
+              </AnimatedSection>
             ))}
           </div>
           
@@ -65,5 +77,6 @@ export default function LanguageTutors() {
     </section>
   )
 }
+
 
 

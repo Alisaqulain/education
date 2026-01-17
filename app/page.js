@@ -1,5 +1,7 @@
-import ClassgapStyleHero from '@/components/ClassgapStyleHero'
+import ImageSlider from '@/components/ImageSlider'
+import TrustMetrics from '@/components/TrustMetrics'
 import LanguageTutors from '@/components/LanguageTutors'
+import FeaturedTeachers from '@/components/FeaturedTeachers'
 import ClassgapSubjects from '@/components/ClassgapSubjects'
 import TrustFeatures from '@/components/TrustFeatures'
 import ClassgapHowItWorks from '@/components/ClassgapHowItWorks'
@@ -13,15 +15,17 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <>
-      <ClassgapStyleHero />
+    <main className="min-h-screen">
+      <ImageSlider />
+      <TrustMetrics />
       <LanguageTutors />
+      <FeaturedTeachers />
       <ClassgapSubjects />
       <TrustFeatures />
       <ClassgapHowItWorks />
       <ClassgapTestimonials />
       <StrongCTA />
-    </>
+    </main>
   )
 }
 
