@@ -16,68 +16,88 @@ const languages = [
 
 export default function LanguageTutors() {
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 overflow-hidden relative">
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-10 right-20 w-64 h-64 bg-indigo-300/20 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-10 left-20 w-80 h-80 bg-purple-300/20 rounded-full blur-3xl animate-float" style={{animationDelay: '3s'}}></div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <AnimatedSection animation="fadeInDown" className="text-center mb-12 sm:mb-16">
-          <div className="inline-block mb-4 px-4 py-2 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 backdrop-blur-sm rounded-full text-indigo-700 text-sm font-bold border border-indigo-300/30 shadow-lg animate-pulse">
-            🌍 Global Learning
+    <section className="py-20 sm:py-24 md:py-28 bg-white overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AnimatedSection animation="fadeInDown" className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 mb-6 px-6 py-2 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full border border-blue-200">
+            <span className="text-2xl">🌍</span>
+            <span className="text-blue-700 font-bold">Global Learning</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
-            Online language lessons with <span className="gradient-text animate-gradient">native tutors</span>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black mb-6 text-gray-900 leading-tight">
+            Learn Languages with <br className="hidden sm:block" />
+            <span className="relative inline-block">
+              <span className="relative z-10 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">Native Tutors</span>
+              <span className="absolute bottom-2 left-0 right-0 h-3 bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 -z-0 opacity-50"></span>
+            </span>
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Learn languages online with the world's best tutors from all over the world
+          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+            Connect with expert language tutors from around the world
           </p>
         </AnimatedSection>
 
-        {/* Language Cards Grid */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 shadow-2xl border-2 border-white/50">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
-            {languages.map((language, index) => (
-              <AnimatedSection
-                key={index}
-                animation="scaleIn"
-                delay={index * 80}
+        {/* Language Cards Grid - New Design */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6">
+          {languages.map((language, index) => (
+            <AnimatedSection
+              key={index}
+              animation="fadeInUp"
+              delay={index * 80}
+            >
+              <Link
+                href={`/teachers?subject=${language.name}&language=true`}
+                className="group relative block"
               >
-                <Link
-                  href={`/teachers?subject=${language.name}&language=true`}
-                  className="group bg-white rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 lg:p-8 border-2 border-gray-200 hover:border-primary transition-all duration-500 hover:shadow-2xl text-center transform hover:-translate-y-2 sm:hover:-translate-y-3 hover:scale-105 sm:hover:scale-110 relative overflow-hidden touch-manipulation"
-                >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-                  <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-2 sm:mb-3 md:mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 drop-shadow-md">
-                    {language.flag}
+                {/* Card with diagonal design */}
+                <div className="relative h-full bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 border-2 border-gray-200 hover:border-blue-500 transition-all duration-500 overflow-hidden">
+                  {/* Diagonal accent */}
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-500/10 to-purple-500/10 transform rotate-45 translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform duration-500"></div>
+                  
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="text-5xl sm:text-6xl transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500">
+                        {language.flag}
+                      </div>
+                      <div className="w-2 h-2 bg-blue-500 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+                    </div>
+                    
+                    <h3 className="text-lg font-bold text-gray-900 mb-1">
+                      {language.name}
+                    </h3>
+                    <p className="text-xs text-gray-500 mb-3">
+                      Online tutors
+                    </p>
+                    
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-2xl sm:text-3xl font-black text-blue-600">
+                        {language.teachers.toLocaleString()}
+                      </span>
+                      <span className="text-sm text-gray-500 font-medium">teachers</span>
+                    </div>
                   </div>
-                <div className="font-bold text-gray-900 mb-1 text-xs sm:text-sm md:text-base leading-tight">
-                  {language.name} Tutors
-                </div>
-                <div className="text-xs text-gray-600 mb-1 sm:mb-2 leading-tight">
-                  Online {language.name} tutors
-                </div>
-                <div className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-primary">
-                  {language.teachers.toLocaleString()} teachers
+                  
+                  {/* Hover arrow */}
+                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
                 </div>
               </Link>
-              </AnimatedSection>
-            ))}
-          </div>
-          
-          <div className="text-center mt-8">
-            <Link
-              href="/subjects?category=languages"
-              className="text-primary hover:text-primary-dark font-semibold text-base sm:text-lg inline-flex items-center space-x-2"
-            >
-              <span>See more languages</span>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
-          </div>
+            </AnimatedSection>
+          ))}
+        </div>
+        
+        <div className="text-center mt-12">
+          <Link
+            href="/subjects?category=languages"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gray-900 text-white rounded-full font-bold text-base hover:bg-gray-800 transition-all duration-300 hover:scale-105 shadow-lg"
+          >
+            <span>Explore All Languages</span>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </Link>
         </div>
       </div>
     </section>

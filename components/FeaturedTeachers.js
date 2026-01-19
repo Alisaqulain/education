@@ -80,7 +80,14 @@ const teachers = [
 
 export default function FeaturedTeachers() {
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 overflow-hidden relative">
+      {/* Animated Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-10 left-10 w-96 h-96 bg-emerald-300/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-10 right-10 w-80 h-80 bg-teal-300/20 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+      </div>
+      
+      <div className="relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection animation="fadeInDown" className="text-center mb-12 sm:mb-16">
           <div className="inline-block mb-4 px-4 py-2 bg-secondary/10 rounded-full text-secondary text-sm font-bold">
@@ -101,9 +108,11 @@ export default function FeaturedTeachers() {
               animation="fadeInUp"
               delay={index * 100}
             >
-              <div className="bg-white rounded-xl sm:rounded-2xl border-2 border-gray-100 hover:border-primary transition-all duration-500 shadow-xl hover:shadow-2xl overflow-hidden group transform hover:-translate-y-3 sm:hover:-translate-y-4 hover:scale-105 relative touch-manipulation">
+              <div className="bg-white/95 backdrop-blur-sm rounded-xl sm:rounded-2xl border-2 border-gray-200/50 hover:border-primary/50 transition-all duration-500 shadow-xl hover:shadow-2xl overflow-hidden group transform hover:-translate-y-3 sm:hover:-translate-y-4 hover:scale-[1.02] relative touch-manipulation">
+                {/* Shimmer effect */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent z-10"></div>
               {/* Teacher Image */}
-              <div className="relative h-48 sm:h-52 md:h-56 bg-gradient-to-br from-primary/20 via-secondary/20 to-primary/20 overflow-hidden">
+              <div className="relative h-48 sm:h-52 md:h-56 bg-gradient-to-br from-primary/30 via-secondary/30 to-primary/30 overflow-hidden group-hover:from-primary/40 group-hover:via-secondary/40 group-hover:to-primary/40 transition-all duration-500">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-28 h-28 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-2xl transform group-hover:scale-110 transition-transform duration-500">
                     {teacher.name.charAt(0)}
@@ -202,6 +211,7 @@ export default function FeaturedTeachers() {
             </svg>
           </Link>
         </div>
+      </div>
       </div>
     </section>
   )

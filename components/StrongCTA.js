@@ -1,25 +1,55 @@
+'use client'
+
+import { useRef, useEffect } from 'react'
 import Link from 'next/link'
 
 export default function StrongCTA() {
+  const videoRef = useRef(null)
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay was prevented
+      })
+    }
+  }, [])
+
   return (
-    <section className="py-20 sm:py-24 md:py-28 lg:py-36 bg-gradient-to-br from-primary/10 via-white to-secondary/10 relative overflow-hidden border-t border-gray-100">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'radial-gradient(circle at 2px 2px, #10b981 1px, transparent 0)',
-          backgroundSize: '40px 40px'
-        }}></div>
+    <section className="relative py-20 sm:py-24 md:py-28 lg:py-36 overflow-hidden">
+      {/* Video Background */}
+      <div className="absolute inset-0">
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectFit: 'cover' }}
+        >
+          <source src="/6986095-uhd_2160_3840_25fps.mp4" type="video/mp4" />
+        </video>
+        
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-transparent to-black/70"></div>
+        
+        {/* Animated particles effect */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-20 left-20 w-64 h-64 bg-primary/30 rounded-full blur-3xl animate-float"></div>
+          <div className="absolute bottom-20 right-20 w-80 h-80 bg-secondary/30 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+        </div>
       </div>
       
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center">
-          <div className="inline-block mb-4 sm:mb-6 px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full border border-primary/30 text-primary text-xs sm:text-sm font-bold shadow-lg">
+          <div className="inline-block mb-4 sm:mb-6 px-4 sm:px-6 py-2 sm:py-3 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white text-xs sm:text-sm font-bold shadow-xl animate-pulse">
             🎉 Join Our Community
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold mb-4 sm:mb-6 text-gray-900 leading-tight px-2">
-            Over <span className="gradient-text">50,000 students</span> join us monthly
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-extrabold mb-4 sm:mb-6 text-white leading-tight px-2 drop-shadow-2xl">
+            Over <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">50,000 students</span> join us monthly
           </h2>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-gray-600 mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed px-2">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-white/95 mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed px-2 drop-shadow-lg">
             Achieve your learning goal. With one of our expert teachers, your goals are closer than ever!
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-2">
@@ -34,7 +64,7 @@ export default function StrongCTA() {
             </Link>
             <Link
               href="/signup"
-              className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 sm:space-x-3 bg-white border-2 border-primary text-primary px-8 py-4 sm:px-10 sm:py-5 md:px-14 md:py-6 rounded-xl sm:rounded-2xl font-extrabold text-base sm:text-lg md:text-xl hover:bg-primary hover:text-white hover:scale-105 sm:hover:scale-110 active:scale-95 transition-all duration-300 transform shadow-lg touch-manipulation"
+              className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-md border-2 border-white/30 text-white px-8 py-4 sm:px-10 sm:py-5 md:px-14 md:py-6 rounded-xl sm:rounded-2xl font-extrabold text-base sm:text-lg md:text-xl hover:bg-white/20 hover:scale-105 sm:hover:scale-110 active:scale-95 transition-all duration-300 transform shadow-2xl touch-manipulation"
             >
               <span>Start Free Trial</span>
             </Link>
