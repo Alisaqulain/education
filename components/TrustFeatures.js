@@ -44,8 +44,15 @@ export default function TrustFeatures() {
   ]
 
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 overflow-hidden relative">
+      {/* Subtle animated background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-10 right-20 w-72 h-72 bg-blue-300/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-10 left-20 w-80 h-80 bg-purple-300/20 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+      </div>
+      
+      <div className="relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection animation="fadeInDown" className="text-center mb-12 sm:mb-16">
           <div className="inline-block mb-4 px-4 py-2 bg-secondary/10 rounded-full text-secondary text-sm font-bold">
             ✨ Premium Features
@@ -85,6 +92,7 @@ export default function TrustFeatures() {
             </svg>
           </Link>
         </div>
+      </div>
       </div>
     </section>
   )

@@ -1,9 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function Signup() {
+  const router = useRouter()
   const [userType, setUserType] = useState('student') // 'student' or 'teacher'
   const [formData, setFormData] = useState({
     fullName: '',
@@ -15,6 +17,30 @@ export default function Signup() {
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token')
+      const userData = localStorage.getItem('user')
+      
+      if (token && userData) {
+        try {
+          const user = JSON.parse(userData)
+          // Redirect based on role
+          if (user.role === 'student') {
+            router.push('/student/dashboard')
+          } else if (user.role === 'teacher') {
+            router.push('/teacher/dashboard')
+          } else if (user.role === 'admin') {
+            router.push('/admin/dashboard')
+          }
+        } catch (e) {
+          // Invalid user data, continue with signup
+        }
+      }
+    }
+  }, [router])
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -69,9 +95,42 @@ export default function Signup() {
     }
     
     setIsSubmitting(true)
+    setErrors({})
     
-    setTimeout(() => {
-      setIsSubmitting(false)
+    try {
+      // Split full name into firstName and lastName
+      const nameParts = formData.fullName.trim().split(/\s+/)
+      const firstName = nameParts[0] || ''
+      const lastName = nameParts.slice(1).join(' ') || firstName
+
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email.trim(),
+          password: formData.password,
+          firstName: firstName,
+          lastName: lastName,
+          role: userType,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed')
+      }
+
+      // Save token and user data
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('user', JSON.stringify(data.user))
+      localStorage.setItem('role', data.user.role)
+
+      // Dispatch custom event to notify Navbar of login
+      window.dispatchEvent(new Event('authChange'))
+
       setSubmitSuccess(true)
       setFormData({
         fullName: '',
@@ -81,16 +140,18 @@ export default function Signup() {
         agreeToTerms: false,
       })
       
+      // Redirect to appropriate dashboard after short delay
       setTimeout(() => {
-        setSubmitSuccess(false)
-        // Redirect to appropriate dashboard
         if (userType === 'student') {
-          window.location.href = '/student/dashboard'
+          router.push('/student/dashboard')
         } else {
-          window.location.href = '/teacher/dashboard'
+          router.push('/teacher/dashboard')
         }
-      }, 2000)
-    }, 1500)
+      }, 1500)
+    } catch (error) {
+      setErrors({ submit: error.message })
+      setIsSubmitting(false)
+    }
   }
 
   const handleGoogleAuth = () => {
@@ -247,6 +308,12 @@ export default function Signup() {
               {errors.confirmPassword && <p className="mt-1 text-xs text-red-600">{errors.confirmPassword}</p>}
             </div>
 
+            {errors.submit && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                <p className="text-sm text-red-600">{errors.submit}</p>
+              </div>
+            )}
+
             <div>
               <label className="flex items-start">
                 <input
@@ -302,6 +369,11 @@ export default function Signup() {
     </div>
   )
 }
+
+
+
+
+
 
 
 

@@ -1,55 +1,52 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 const slides = [
   {
     id: 1,
-    image: '/api/placeholder/1920/800',
+    video: '/uhd_25fps.mp4',
     title: 'Learn from Expert Teachers Worldwide',
     subtitle: 'Connect with 10,000+ verified educators ready to help you succeed',
     cta: 'Find Your Perfect Teacher',
     ctaLink: '/teachers',
     bgGradient: 'from-indigo-600 via-purple-600 to-pink-600',
-    bgPattern: 'circles',
   },
   {
     id: 2,
-    image: '/api/placeholder/1920/800',
+    video: '/6671234-uhd_2732_1026_25fps.mp4',
     title: 'Master 250+ Subjects Online',
     subtitle: 'From Mathematics to Languages, we have courses for everyone',
     cta: 'Explore Subjects',
     ctaLink: '/subjects',
     bgGradient: 'from-cyan-600 via-blue-600 to-indigo-600',
-    bgPattern: 'grid',
   },
   {
     id: 3,
-    image: '/api/placeholder/1920/800',
+    video: '/6985520-uhd_3840_2160_25fps.mp4',
     title: 'Start Teaching and Earn from Home',
     subtitle: 'Join thousands of teachers sharing knowledge and building careers',
     cta: 'Become a Teacher',
     ctaLink: '/register',
     bgGradient: 'from-emerald-600 via-teal-600 to-cyan-600',
-    bgPattern: 'waves',
   },
   {
     id: 4,
-    image: '/api/placeholder/1920/800',
+    video: '/5183279-hd_1920_1080_30fps.mp4',
     title: 'Free 20-Minute Trial for New Students',
     subtitle: 'Experience quality education risk-free with our trial sessions',
     cta: 'Start Free Trial',
     ctaLink: '/signup',
     bgGradient: 'from-orange-500 via-red-500 to-pink-500',
-    bgPattern: 'dots',
   },
 ]
 
 export default function ImageSlider() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const videoRefs = useRef([])
 
   useEffect(() => {
     if (!isAutoPlaying) return
@@ -60,6 +57,22 @@ export default function ImageSlider() {
 
     return () => clearInterval(interval)
   }, [isAutoPlaying])
+
+  // Play video when slide becomes active, pause others
+  useEffect(() => {
+    videoRefs.current.forEach((video, index) => {
+      if (video) {
+        if (index === currentSlide) {
+          video.play().catch(() => {
+            // Autoplay was prevented, which is fine
+          })
+        } else {
+          video.pause()
+          video.currentTime = 0
+        }
+      }
+    })
+  }, [currentSlide])
 
   const goToSlide = (index) => {
     setCurrentSlide(index)
@@ -90,48 +103,40 @@ export default function ImageSlider() {
               index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
             }`}
           >
-            {/* Background Image */}
+            {/* Background Video */}
             <div className="absolute inset-0">
-              {/* Main Gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${slide.bgGradient} animate-gradient`}></div>
+              {/* Video Background */}
+              {slide.video && (
+                <video
+                  ref={(el) => {
+                    if (el) videoRefs.current[index] = el
+                  }}
+                  autoPlay={index === currentSlide}
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover z-0"
+                  style={{ objectFit: 'cover' }}
+                  onLoadedData={() => {
+                    if (index === currentSlide && videoRefs.current[index]) {
+                      videoRefs.current[index].play().catch(() => {})
+                    }
+                  }}
+                >
+                  <source src={slide.video} type="video/mp4" />
+                </video>
+              )}
+              
+              {/* Fallback Gradient (if video fails to load) - Behind video */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${slide.bgGradient} animate-gradient z-[-1]`}></div>
+              
+              {/* Overlay Gradient for better text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20 z-10"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/40 z-10"></div>
               
               {/* Animated Blob Shapes - Hidden on mobile for performance */}
-              <div className="hidden md:block absolute top-0 -right-20 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float"></div>
-              <div className="hidden md:block absolute bottom-0 -left-20 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
-              <div className="hidden lg:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-white/5 rounded-full blur-3xl animate-float" style={{animationDelay: '4s'}}></div>
-              
-              {/* Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"></div>
-              <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/30"></div>
-              
-              {/* Unique Pattern Overlay */}
-              <div className="absolute inset-0 opacity-10">
-                {slide.bgPattern === 'circles' && (
-                  <div className="absolute inset-0" style={{
-                    backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-                    backgroundSize: '50px 50px'
-                  }}></div>
-                )}
-                {slide.bgPattern === 'grid' && (
-                  <div className="absolute inset-0" style={{
-                    backgroundImage: `linear-gradient(white 1px, transparent 1px), linear-gradient(90deg, white 1px, transparent 1px)`,
-                    backgroundSize: '40px 40px'
-                  }}></div>
-                )}
-                {slide.bgPattern === 'waves' && (
-                  <div className="absolute inset-0" style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 Q 25 30, 50 50 T 100 50' stroke='white' stroke-width='2' fill='none'/%3E%3C/svg%3E")`,
-                    backgroundSize: '100px 100px',
-                    opacity: '0.3'
-                  }}></div>
-                )}
-                {slide.bgPattern === 'dots' && (
-                  <div className="absolute inset-0" style={{
-                    backgroundImage: `radial-gradient(circle, white 2px, transparent 2px)`,
-                    backgroundSize: '30px 30px'
-                  }}></div>
-                )}
-              </div>
+              <div className="hidden md:block absolute top-0 -right-20 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-float"></div>
+              <div className="hidden md:block absolute bottom-0 -left-20 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
               
               {/* Shine Effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 -translate-x-full animate-shimmer"></div>

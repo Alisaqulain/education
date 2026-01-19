@@ -28,6 +28,9 @@ export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [countryOpen, setCountryOpen] = useState(false)
   const [selectedCountry, setSelectedCountry] = useState(countries[0])
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [user, setUser] = useState(null)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,6 +52,63 @@ export default function Navbar() {
   }, [mobileMenuOpen])
 
   useEffect(() => {
+    // Check if user is logged in
+    const token = localStorage.getItem('token')
+    const userData = localStorage.getItem('user')
+    if (token && userData) {
+      setIsLoggedIn(true)
+      try {
+        setUser(JSON.parse(userData))
+      } catch (e) {
+        console.error('Error parsing user data:', e)
+      }
+    } else {
+      setIsLoggedIn(false)
+      setUser(null)
+    }
+  }, [])
+
+  useEffect(() => {
+    // Function to check and update auth state
+    const checkAuth = () => {
+      const token = localStorage.getItem('token')
+      const userData = localStorage.getItem('user')
+      if (token && userData) {
+        setIsLoggedIn(true)
+        try {
+          setUser(JSON.parse(userData))
+        } catch (e) {
+          setUser(null)
+          setIsLoggedIn(false)
+        }
+      } else {
+        setIsLoggedIn(false)
+        setUser(null)
+      }
+    }
+
+    // Listen for storage changes (login/logout from other tabs)
+    const handleStorageChange = (e) => {
+      if (e.key === 'token' || e.key === 'user') {
+        checkAuth()
+      }
+    }
+
+    // Listen for custom auth change events (same tab)
+    const handleAuthChange = () => {
+      checkAuth()
+    }
+
+    window.addEventListener('storage', handleStorageChange)
+    window.addEventListener('authChange', handleAuthChange)
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      window.removeEventListener('authChange', handleAuthChange)
+    }
+  }, [])
+
+  useEffect(() => {
     const handleClickOutside = (event) => {
       // Check if click is outside country selector
       if (countryOpen && !event.target.closest('.country-selector')) {
@@ -60,12 +120,35 @@ export default function Navbar() {
       if (dropdownOpen && !exploreButton && !exploreMenu) {
         setDropdownOpen(false)
       }
+      // Check if click is outside user menu
+      if (userMenuOpen && !event.target.closest('.user-menu')) {
+        setUserMenuOpen(false)
+      }
     }
-    if (countryOpen || dropdownOpen) {
+    if (countryOpen || dropdownOpen || userMenuOpen) {
       document.addEventListener('mousedown', handleClickOutside)
       return () => document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [countryOpen, dropdownOpen])
+  }, [countryOpen, dropdownOpen, userMenuOpen])
+
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    localStorage.removeItem('role')
+    setIsLoggedIn(false)
+    setUser(null)
+    setUserMenuOpen(false)
+    window.location.href = '/'
+  }
+
+  const getUserDashboardLink = () => {
+    if (!user) return '/'
+    const role = user.role || localStorage.getItem('role')
+    if (role === 'admin') return '/admin/dashboard'
+    if (role === 'teacher') return '/teacher/courses'
+    if (role === 'student') return '/student/my-courses'
+    return '/'
+  }
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
@@ -223,18 +306,64 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-            <Link 
-              href="/student/login" 
-              className="text-gray-700 hover:text-primary transition-colors font-medium text-sm"
-            >
-              Log in
-            </Link>
-            <Link 
-              href="/signup" 
-              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2.5 rounded-xl hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 font-semibold text-sm whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              Sign up for free
-            </Link>
+            {isLoggedIn && user ? (
+              <div className="relative user-menu">
+                <button
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="flex items-center space-x-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <div className="w-8 h-8 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                    {user.firstName?.charAt(0) || 'U'}{user.lastName?.charAt(0) || ''}
+                  </div>
+                  <span className="hidden md:block text-sm font-medium text-gray-700">
+                    {user.firstName} {user.lastName}
+                  </span>
+                  <svg className={`w-4 h-4 text-gray-600 transition-transform ${userMenuOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                {userMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
+                    <Link
+                      href={getUserDashboardLink()}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors"
+                      onClick={() => setUserMenuOpen(false)}
+                    >
+                      Dashboard
+                    </Link>
+                    <Link
+                      href="/profile"
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary/10 hover:text-primary transition-colors"
+                      onClick={() => setUserMenuOpen(false)}
+                    >
+                      Profile
+                    </Link>
+                    <hr className="my-2 border-gray-200" />
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <Link 
+                  href="/student/login" 
+                  className="text-gray-700 hover:text-primary transition-colors font-medium text-sm"
+                >
+                  Log in
+                </Link>
+                <Link 
+                  href="/signup" 
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2.5 rounded-xl hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 font-semibold text-sm whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                >
+                  Sign up for free
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -338,13 +467,34 @@ export default function Navbar() {
                     ))}
                   </select>
                 </div>
-                <Link 
-                  href="/student/login" 
-                  className="block w-full text-center text-gray-700 hover:text-primary transition-colors font-medium py-2"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Login
-                </Link>
+                {isLoggedIn && user ? (
+                  <>
+                    <Link 
+                      href={getUserDashboardLink()}
+                      className="block w-full text-center text-gray-700 hover:text-primary transition-colors font-medium py-2"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={() => {
+                        handleLogout()
+                        setMobileMenuOpen(false)
+                      }}
+                      className="block w-full text-center text-red-600 hover:text-red-700 transition-colors font-medium py-2"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <Link 
+                    href="/student/login" 
+                    className="block w-full text-center text-gray-700 hover:text-primary transition-colors font-medium py-2"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Login
+                  </Link>
+                )}
                 <Link 
                   href="/student-register" 
                   className="block w-full text-center bg-white border-2 border-secondary text-secondary px-6 py-3 rounded-lg hover:bg-secondary hover:text-white transition-all duration-300 font-medium"

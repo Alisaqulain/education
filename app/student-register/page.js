@@ -1,8 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function StudentRegister() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -12,6 +14,30 @@ export default function StudentRegister() {
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token')
+      const userData = localStorage.getItem('user')
+      
+      if (token && userData) {
+        try {
+          const user = JSON.parse(userData)
+          // Redirect based on role
+          if (user.role === 'student') {
+            router.push('/student/dashboard')
+          } else if (user.role === 'teacher') {
+            router.push('/teacher/dashboard')
+          } else if (user.role === 'admin') {
+            router.push('/admin/dashboard')
+          }
+        } catch (e) {
+          // Invalid user data, continue with registration
+        }
+      }
+    }
+  }, [router])
 
   const handleChange = (e) => {
     const { name, value } = e.target

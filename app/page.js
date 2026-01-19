@@ -4,6 +4,7 @@ import LanguageTutors from '@/components/LanguageTutors'
 import FeaturedTeachers from '@/components/FeaturedTeachers'
 import ClassgapSubjects from '@/components/ClassgapSubjects'
 import TrustFeatures from '@/components/TrustFeatures'
+import VideoShowcase from '@/components/VideoShowcase'
 import ClassgapHowItWorks from '@/components/ClassgapHowItWorks'
 import ClassgapTestimonials from '@/components/ClassgapTestimonials'
 import StrongCTA from '@/components/StrongCTA'
@@ -22,6 +23,7 @@ export default function Home() {
       <FeaturedTeachers />
       <ClassgapSubjects />
       <TrustFeatures />
+      <VideoShowcase />
       <ClassgapHowItWorks />
       <ClassgapTestimonials />
       <StrongCTA />

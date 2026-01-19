@@ -1,9 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function TeacherLogin() {
+  const router = useRouter()
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -13,6 +15,30 @@ export default function TeacherLogin() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showForgotPassword, setShowForgotPassword] = useState(false)
   const [forgotEmail, setForgotEmail] = useState('')
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token')
+      const userData = localStorage.getItem('user')
+      
+      if (token && userData) {
+        try {
+          const user = JSON.parse(userData)
+          // Redirect based on role
+          if (user.role === 'student') {
+            router.push('/student/dashboard')
+          } else if (user.role === 'teacher') {
+            router.push('/teacher/dashboard')
+          } else if (user.role === 'admin') {
+            router.push('/admin/dashboard')
+          }
+        } catch (e) {
+          // Invalid user data, continue with login
+        }
+      }
+    }
+  }, [router])
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -48,10 +74,44 @@ export default function TeacherLogin() {
     
     setIsSubmitting(true)
     
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          role: 'teacher'
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Login failed')
+      }
+
+      // Check if user is teacher
+      if (data.user.role !== 'teacher') {
+        throw new Error('Access denied. Teacher account required.')
+      }
+
+      // Save token and user data
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('user', JSON.stringify(data.user))
+      localStorage.setItem('role', 'teacher')
+
+      // Dispatch custom event to notify Navbar of login
+      window.dispatchEvent(new Event('authChange'))
+
+      // Redirect to teacher dashboard
+      router.push('/teacher/dashboard')
+    } catch (error) {
+      setErrors({ submit: error.message })
       setIsSubmitting(false)
-      alert('Login successful! (Frontend demo - will redirect to teacher dashboard when backend is ready)')
-    }, 1500)
+    }
   }
 
   const handleGoogleAuth = () => {
@@ -199,6 +259,12 @@ export default function TeacherLogin() {
               />
               {errors.password && <p className="mt-1 text-xs text-red-600">{errors.password}</p>}
             </div>
+            
+            {errors.submit && (
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                <p className="text-sm text-red-600">{errors.submit}</p>
+              </div>
+            )}
             
             <div className="flex items-center justify-between">
               <label className="flex items-center">

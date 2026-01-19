@@ -16,14 +16,20 @@ const languages = [
 
 export default function LanguageTutors() {
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-gradient-to-b from-gray-50 via-white to-gray-50 overflow-hidden border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 overflow-hidden relative">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-10 right-20 w-64 h-64 bg-indigo-300/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-10 left-20 w-80 h-80 bg-purple-300/20 rounded-full blur-3xl animate-float" style={{animationDelay: '3s'}}></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <AnimatedSection animation="fadeInDown" className="text-center mb-12 sm:mb-16">
-          <div className="inline-block mb-4 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-bold">
+          <div className="inline-block mb-4 px-4 py-2 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 backdrop-blur-sm rounded-full text-indigo-700 text-sm font-bold border border-indigo-300/30 shadow-lg animate-pulse">
             🌍 Global Learning
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
-            Online language lessons with <span className="gradient-text">native tutors</span>
+            Online language lessons with <span className="gradient-text animate-gradient">native tutors</span>
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Learn languages online with the world's best tutors from all over the world
@@ -31,7 +37,7 @@ export default function LanguageTutors() {
         </AnimatedSection>
 
         {/* Language Cards Grid */}
-        <div className="bg-gradient-to-br from-gray-50 via-white to-gray-50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 shadow-xl border border-gray-100">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 shadow-2xl border-2 border-white/50">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
             {languages.map((language, index) => (
               <AnimatedSection

@@ -1,9 +1,36 @@
-export const metadata = {
-  title: 'Pricing - Edgen Institute',
-  description: 'Transparent pricing information for Edgen Institute. Fair rates for teachers and students.',
-}
+'use client'
+
+import { useEffect, useState } from 'react'
 
 export default function Pricing() {
+  const [userRole, setUserRole] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token')
+      const userData = localStorage.getItem('user')
+      
+      if (token && userData) {
+        try {
+          const user = JSON.parse(userData)
+          setUserRole(user.role)
+        } catch (e) {
+          // Invalid user data
+        }
+      }
+      setLoading(false)
+    }
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-24 min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
+
   return (
     <div className="pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,82 +76,88 @@ export default function Pricing() {
         </div>
 
         {/* Pricing Structure */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-8">
-          <div className="bg-white p-6 sm:p-8 rounded-xl border border-gray-200">
-            <div className="w-14 h-14 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center mb-6 text-white">
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
+        <div className={`grid gap-6 sm:gap-8 mb-8 ${userRole ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
+          {/* Student Pricing - Show if not logged in, or if logged in as student */}
+          {(!userRole || userRole === 'student') && (
+            <div className="bg-white p-6 sm:p-8 rounded-xl border border-gray-200">
+              <div className="w-14 h-14 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center mb-6 text-white">
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">For Students</h3>
+              <ul className="space-y-3 text-gray-700 mb-6">
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Pay per session or purchase packages</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Rates vary by teacher and subject</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Secure payment processing</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Transparent pricing - no surprises</span>
+                </li>
+              </ul>
+              <p className="text-sm text-gray-600 italic">
+                * Exact pricing will be displayed when booking with individual teachers
+              </p>
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">For Students</h3>
-            <ul className="space-y-3 text-gray-700 mb-6">
-              <li className="flex items-start">
-                <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Pay per session or purchase packages</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Rates vary by teacher and subject</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Secure payment processing</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Transparent pricing - no surprises</span>
-              </li>
-            </ul>
-            <p className="text-sm text-gray-600 italic">
-              * Exact pricing will be displayed when booking with individual teachers
-            </p>
-          </div>
+          )}
 
-          <div className="bg-white p-6 sm:p-8 rounded-xl border border-gray-200">
-            <div className="w-14 h-14 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center mb-6 text-white">
-              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
+          {/* Teacher Pricing - Show if not logged in, or if logged in as teacher */}
+          {(!userRole || userRole === 'teacher') && (
+            <div className="bg-white p-6 sm:p-8 rounded-xl border border-gray-200">
+              <div className="w-14 h-14 bg-gradient-to-r from-primary to-secondary rounded-lg flex items-center justify-center mb-6 text-white">
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">For Teachers</h3>
+              <ul className="space-y-3 text-gray-700 mb-6">
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Set your own hourly rates</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Competitive platform fees</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Regular payout schedule</span>
+                </li>
+                <li className="flex items-start">
+                  <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Keep majority of your earnings</span>
+                </li>
+              </ul>
+              <p className="text-sm text-gray-600 italic">
+                * Platform fee structure will be shared during teacher onboarding
+              </p>
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">For Teachers</h3>
-            <ul className="space-y-3 text-gray-700 mb-6">
-              <li className="flex items-start">
-                <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Set your own hourly rates</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Competitive platform fees</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Regular payout schedule</span>
-              </li>
-              <li className="flex items-start">
-                <svg className="w-5 h-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                <span>Keep majority of your earnings</span>
-              </li>
-            </ul>
-            <p className="text-sm text-gray-600 italic">
-              * Platform fee structure will be shared during teacher onboarding
-            </p>
-          </div>
+          )}
         </div>
 
         {/* Disclaimer */}
@@ -147,6 +180,11 @@ export default function Pricing() {
     </div>
   )
 }
+
+
+
+
+
 
 
 

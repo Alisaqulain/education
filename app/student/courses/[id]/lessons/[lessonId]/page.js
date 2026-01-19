@@ -2,7 +2,8 @@
 
 import { useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import VideoPlayer from '@/components/VideoPlayer'
 
 export default function LessonDetail() {
   const params = useParams()
@@ -20,7 +21,7 @@ export default function LessonDetail() {
       duration: '60 min',
       type: 'video',
       description: 'Learn the fundamentals of linear algebra including vectors, matrices, and basic operations.',
-      videoUrl: null, // Placeholder for video URL
+      videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', // Sample video for demo
       completed: false,
       content: `# Linear Algebra Foundations
 
@@ -115,7 +116,11 @@ Linear algebra is a fundamental branch of mathematics that studies vectors, vect
 
             {/* Video/Lesson Content */}
             <div className="bg-white rounded-xl border border-gray-200 p-6">
-              {lesson.type === 'video' ? (
+              {lesson.type === 'video' && lesson.videoUrl ? (
+                <div className="mb-6">
+                  <VideoPlayer videoUrl={lesson.videoUrl} title={lesson.title} />
+                </div>
+              ) : lesson.type === 'video' ? (
                 <div className="aspect-video bg-gray-900 rounded-lg flex items-center justify-center mb-6">
                   <div className="text-center text-white">
                     <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -193,4 +198,6 @@ Linear algebra is a fundamental branch of mathematics that studies vectors, vect
     </div>
   )
 }
+
+
 

@@ -107,37 +107,53 @@ export default function TrustMetrics() {
   ]
 
   return (
-    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-gradient-to-b from-white via-gray-50 to-white overflow-hidden border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 sm:py-20 md:py-24 lg:py-28 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 overflow-hidden relative">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl animate-float" style={{animationDelay: '4s'}}></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <AnimatedSection animation="fadeInDown" className="text-center mb-12 sm:mb-16">
-          <div className="inline-block mb-4 px-4 py-2 bg-primary/10 rounded-full text-primary text-sm font-bold">
+          <div className="inline-block mb-4 px-4 py-2 bg-gradient-to-r from-primary/20 to-secondary/20 backdrop-blur-sm rounded-full text-primary text-sm font-bold border border-primary/30 shadow-lg animate-pulse">
             🏆 Trusted Platform
           </div>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">
-            Trusted by <span className="gradient-text">Millions Worldwide</span>
+            Trusted by <span className="gradient-text animate-gradient">Millions Worldwide</span>
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Join thousands of students and teachers who trust Edgen Institute for quality education
           </p>
         </AnimatedSection>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 md:gap-8">
           {metrics.map((metric, index) => (
             <AnimatedSection
               key={index}
               animation="scaleIn"
               delay={index * 100}
             >
-              <div className="bg-white p-4 sm:p-5 md:p-6 lg:p-8 rounded-xl sm:rounded-2xl border-2 border-gray-100 hover:border-primary transition-all duration-500 shadow-lg hover:shadow-2xl text-center group transform hover:-translate-y-2 sm:hover:-translate-y-3 hover:scale-105 relative overflow-hidden touch-manipulation">
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary to-secondary transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 lg:w-20 lg:h-20 bg-gradient-to-r from-primary/15 to-secondary/15 rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 md:mb-5 text-primary group-hover:scale-125 group-hover:rotate-6 transition-all duration-500 shadow-md">
-                  {metric.icon}
-                </div>
-                <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-2 sm:mb-3 gradient-text leading-tight">
-                  {metric.number}
-                </div>
-                <div className="text-xs sm:text-sm md:text-base text-gray-600 font-semibold leading-tight">
-                  {metric.label}
+              <div className="bg-white/95 backdrop-blur-sm p-4 sm:p-5 md:p-6 rounded-xl border-2 border-gray-200/50 hover:border-primary/50 shadow-lg hover:shadow-2xl transition-all duration-500 text-center group relative overflow-hidden transform hover:-translate-y-2 hover:scale-[1.02]">
+                {/* Animated gradient border on hover */}
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                {/* Shimmer effect */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                
+                <div className="relative z-10 h-full flex flex-col items-center justify-center">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-br from-primary via-primary/90 to-secondary rounded-lg flex items-center justify-center mx-auto mb-3 sm:mb-4 text-white shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 group-hover:shadow-primary/50">
+                    <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 transform group-hover:scale-110 transition-transform duration-500">
+                      {metric.icon}
+                    </div>
+                  </div>
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-1 sm:mb-2 leading-tight group-hover:scale-105 transition-transform duration-300 whitespace-nowrap overflow-hidden text-ellipsis">
+                    {metric.number}
+                  </div>
+                  <div className="text-xs sm:text-sm text-gray-700 font-semibold group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                    {metric.label}
+                  </div>
                 </div>
               </div>
             </AnimatedSection>
