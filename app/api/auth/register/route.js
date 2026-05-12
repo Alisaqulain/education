@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import connectDB from '@/lib/mongodb'
 import User from '@/models/User'
-import { hashPassword, generateToken } from '@/lib/auth'
+import { hashPassword, generateToken, attachAuthCookie } from '@/lib/auth'
 
 export async function POST(request) {
   try {
@@ -64,9 +64,12 @@ export async function POST(request) {
       avatar: user.avatar,
     }
 
-    return NextResponse.json(
-      { user: userResponse, token },
-      { status: 201 }
+    return attachAuthCookie(
+      NextResponse.json(
+        { user: userResponse, token },
+        { status: 201 }
+      ),
+      token
     )
   } catch (error) {
     console.error('Registration error:', error)

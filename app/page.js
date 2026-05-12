@@ -1,33 +1,33 @@
-import ImageSlider from '@/components/ImageSlider'
-import TrustMetrics from '@/components/TrustMetrics'
-import LanguageTutors from '@/components/LanguageTutors'
-import FeaturedTeachers from '@/components/FeaturedTeachers'
-import ClassgapSubjects from '@/components/ClassgapSubjects'
-import TrustFeatures from '@/components/TrustFeatures'
-import VideoShowcase from '@/components/VideoShowcase'
-import ClassgapHowItWorks from '@/components/ClassgapHowItWorks'
-import ClassgapTestimonials from '@/components/ClassgapTestimonials'
-import StrongCTA from '@/components/StrongCTA'
+import dynamic from 'next/dynamic'
+import { SITE } from '@/data/site'
+import { absoluteUrl, defaultOpenGraph } from '@/lib/seo'
+
+const HomeSections = dynamic(() => import('@/components/home/HomeSections'), {
+  ssr: true,
+  loading: () => (
+    <div className="min-h-[60vh] pt-32 flex items-center justify-center text-gray-500 text-sm">
+      Loading experience…
+    </div>
+  ),
+})
 
 export const metadata = {
-  title: 'Edgen Institute - Learn with online tutoring from anywhere in the world',
-  description: 'Connect with 10,000+ verified teachers worldwide. Learn 250+ subjects online or in-person. Free 20-minute trial available. Join 500k+ students on Edgen Institute.',
+  title: `${SITE.name} — Learn smarter. Grow holistically.`,
+  description:
+    'Complete development for students — academics, competitive exams, skills, creativity and sports. Live + offline + recorded, with parent dashboards and AI-assisted practice.',
+  openGraph: {
+    ...defaultOpenGraph,
+    title: `${SITE.name} — Academics to athletics`,
+    description:
+      'Complete development for students — academics, competitive exams, skills, creativity and sports.',
+    url: absoluteUrl('/'),
+  },
 }
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <ImageSlider />
-      <TrustMetrics />
-      <LanguageTutors />
-      <FeaturedTeachers />
-      <ClassgapSubjects />
-      <TrustFeatures />
-      <VideoShowcase />
-      <ClassgapHowItWorks />
-      <ClassgapTestimonials />
-      <StrongCTA />
-    </main>
+    <div className="min-h-screen">
+      <HomeSections />
+    </div>
   )
 }
-

@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: [],
   },
+  async redirects() {
+    return [{ source: '/why-edgen', destination: '/why-myndveda', permanent: true }]
+  },
 }
 
 module.exports = nextConfig

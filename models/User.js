@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['student', 'teacher', 'admin'],
+    enum: ['student', 'teacher', 'admin', 'parent', 'counselor', 'franchise_partner'],
     required: true,
     default: 'student',
   },
@@ -41,6 +41,26 @@ const UserSchema = new mongoose.Schema({
   googleId: {
     type: String,
     default: null,
+  },
+  
+  // Parent / guardian — links to student user accounts
+  parentInfo: {
+    children: [{
+      student: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      relation: { type: String, default: 'guardian' },
+      name: String,
+    }],
+  },
+
+  counselorInfo: {
+    territories: [String],
+    languages: [String],
+  },
+
+  franchiseInfo: {
+    territory: String,
+    status: { type: String, enum: ['pending', 'active', 'suspended'], default: 'pending' },
+    companyName: String,
   },
   
   // Student-specific fields

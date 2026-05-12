@@ -36,6 +36,23 @@ const CourseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  /** K-12, competitive, skills, sports, crash */
+  programDivision: {
+    type: String,
+    default: 'academic',
+  },
+  /** live, recorded, hybrid */
+  courseType: {
+    type: String,
+    enum: ['live', 'recorded', 'hybrid', 'crash', 'workshop'],
+    default: 'hybrid',
+  },
+  /** online, offline, blended */
+  deliveryMode: {
+    type: String,
+    enum: ['online', 'offline', 'blended'],
+    default: 'online',
+  },
   thumbnail: {
     type: String,
     default: '',
@@ -100,6 +117,8 @@ const CourseSchema = new mongoose.Schema({
 CourseSchema.index({ teacher: 1 })
 CourseSchema.index({ subject: 1 })
 CourseSchema.index({ category: 1 })
+CourseSchema.index({ programDivision: 1 })
+CourseSchema.index({ courseType: 1 })
 CourseSchema.index({ status: 1 })
 CourseSchema.index({ 'rating.average': -1 })
 

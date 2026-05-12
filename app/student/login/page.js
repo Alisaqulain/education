@@ -29,6 +29,8 @@ export default function StudentLogin() {
           // Redirect based on role
           if (user.role === 'student') {
             router.push('/student/dashboard')
+          } else if (user.role === 'parent') {
+            router.push('/parent/dashboard')
           } else if (user.role === 'teacher') {
             router.push('/teacher/dashboard')
           } else if (user.role === 'admin') {
@@ -78,6 +80,7 @@ export default function StudentLogin() {
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },

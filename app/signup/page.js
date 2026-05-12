@@ -30,6 +30,8 @@ export default function Signup() {
           // Redirect based on role
           if (user.role === 'student') {
             router.push('/student/dashboard')
+          } else if (user.role === 'parent') {
+            router.push('/parent/dashboard')
           } else if (user.role === 'teacher') {
             router.push('/teacher/dashboard')
           } else if (user.role === 'admin') {
@@ -105,6 +107,7 @@ export default function Signup() {
 
       const response = await fetch('/api/auth/register', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -144,6 +147,8 @@ export default function Signup() {
       setTimeout(() => {
         if (userType === 'student') {
           router.push('/student/dashboard')
+        } else if (userType === 'parent') {
+          router.push('/parent/dashboard')
         } else {
           router.push('/teacher/dashboard')
         }
@@ -189,11 +194,11 @@ export default function Signup() {
 
           {/* User Type Selector */}
           <div className="mb-6">
-            <div className="flex bg-gray-100 rounded-lg p-1">
+            <div className="grid grid-cols-3 bg-gray-100 rounded-lg p-1 gap-1">
               <button
                 type="button"
                 onClick={() => setUserType('student')}
-                className={`flex-1 py-2 px-4 rounded-md font-medium transition-all ${
+                className={`py-2 px-2 rounded-md font-medium text-sm transition-all ${
                   userType === 'student'
                     ? 'bg-white text-primary shadow-sm'
                     : 'text-gray-600 hover:text-gray-900'
@@ -204,13 +209,24 @@ export default function Signup() {
               <button
                 type="button"
                 onClick={() => setUserType('teacher')}
-                className={`flex-1 py-2 px-4 rounded-md font-medium transition-all ${
+                className={`py-2 px-2 rounded-md font-medium text-sm transition-all ${
                   userType === 'teacher'
                     ? 'bg-white text-primary shadow-sm'
                     : 'text-gray-600 hover:text-gray-900'
                 }`}
               >
                 Teacher
+              </button>
+              <button
+                type="button"
+                onClick={() => setUserType('parent')}
+                className={`py-2 px-2 rounded-md font-medium text-sm transition-all ${
+                  userType === 'parent'
+                    ? 'bg-white text-primary shadow-sm'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                Parent
               </button>
             </div>
           </div>
@@ -351,7 +367,7 @@ export default function Signup() {
                   Creating account...
                 </>
               ) : (
-                `Sign up as ${userType === 'student' ? 'Student' : 'Teacher'}`
+                `Sign up as ${userType === 'student' ? 'Student' : userType === 'parent' ? 'Parent' : 'Teacher'}`
               )}
             </button>
           </form>
@@ -359,7 +375,7 @@ export default function Signup() {
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Already have an account?{' '}
-              <Link href={userType === 'student' ? '/student/login' : '/teacher/login'} className="text-primary font-semibold hover:text-primary-dark">
+              <Link href={userType === 'student' ? '/student/login' : userType === 'parent' ? '/parent/login' : '/teacher/login'} className="text-primary font-semibold hover:text-primary-dark">
                 Log in
               </Link>
             </p>

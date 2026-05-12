@@ -68,6 +68,7 @@ export default function AdminDashboard() {
   }
 
   const quickActions = [
+    { title: 'Leads & inquiries', icon: '📥', link: '/admin/leads', color: 'from-emerald-500 to-teal-600' },
     { title: 'Manage Teachers', icon: '👨‍🏫', link: '/admin/teachers', color: 'from-blue-500 to-blue-600' },
     { title: 'Manage Students', icon: '👩‍🎓', link: '/admin/students', color: 'from-green-500 to-green-600' },
     { title: 'Course Management', icon: '📚', link: '/admin/courses', color: 'from-purple-500 to-purple-600' },
@@ -171,6 +172,35 @@ export default function AdminDashboard() {
                 <span className="text-2xl sm:text-3xl">📅</span>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
+          <div className="bg-white rounded-xl border-2 border-gray-100 p-4 shadow-sm">
+            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wide">Course approval</h3>
+            <p className="text-sm text-gray-600 mt-2">Moderate drafts, thumbnails and learning outcomes before publish.</p>
+            <Link href="/admin/courses" className="inline-flex mt-3 text-sm font-semibold text-primary hover:underline">
+              Open queue →
+            </Link>
+          </div>
+          <div className="bg-white rounded-xl border-2 border-gray-100 p-4 shadow-sm">
+            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wide">Teacher verification</h3>
+            <p className="text-sm text-gray-600 mt-2">KYC, trial classes and student feedback loops.</p>
+            <Link href="/admin/teachers" className="inline-flex mt-3 text-sm font-semibold text-primary hover:underline">
+              Verify faculty →
+            </Link>
+          </div>
+          <div className="bg-white rounded-xl border-2 border-gray-100 p-4 shadow-sm">
+            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wide">Payments</h3>
+            <p className="text-sm text-gray-600 mt-2">Gateway settlements, refunds and invoices (wire to payments API).</p>
+            <span className="inline-flex mt-3 text-sm text-gray-400">Dashboard UI — data hookup pending</span>
+          </div>
+          <div className="bg-white rounded-xl border-2 border-gray-100 p-4 shadow-sm">
+            <h3 className="text-xs font-bold text-gray-500 uppercase tracking-wide">Reports export</h3>
+            <p className="text-sm text-gray-600 mt-2">CSV / Sheets for cohorts, revenue and attendance.</p>
+            <Link href="/admin/reports" className="inline-flex mt-3 text-sm font-semibold text-primary hover:underline">
+              Go to reports →
+            </Link>
           </div>
         </div>
 

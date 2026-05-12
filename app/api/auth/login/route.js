@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import connectDB from '@/lib/mongodb'
 import User from '@/models/User'
-import { comparePassword, generateToken } from '@/lib/auth'
+import { comparePassword, generateToken, attachAuthCookie } from '@/lib/auth'
 
 export async function POST(request) {
   try {
@@ -86,10 +86,13 @@ export async function POST(request) {
       studentInfo: user.role === 'student' ? user.studentInfo : undefined,
     }
 
-    return NextResponse.json({
-      user: userResponse,
-      token,
-    })
+    return attachAuthCookie(
+      NextResponse.json({
+        user: userResponse,
+        token,
+      }),
+      token
+    )
   } catch (error) {
     console.error('Login error:', error)
     return NextResponse.json(
