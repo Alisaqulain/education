@@ -54,7 +54,7 @@ export default function ParentLoginPage() {
     <div className="min-h-screen flex items-center justify-center px-4 pt-20 pb-16 bg-gradient-to-br from-slate-50 to-white">
       <div className="w-full max-w-md rounded-3xl border border-gray-200 bg-white p-8 shadow-xl">
         <div className="flex justify-center mb-6">
-          <Image src="/logo%20(2).jpeg" alt="Edgen" width={72} height={72} className="object-contain" />
+          <Image src="/updatelogo.jpeg" alt="Edgen" width={72} height={72} className="object-contain" />
         </div>
         <h1 className="text-2xl font-black text-center text-gray-900">Parent login</h1>
         <p className="text-sm text-center text-gray-600 mt-2">Monitor progress, fees and teacher messages.</p>
