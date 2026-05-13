@@ -3,9 +3,9 @@ export const SITE = {
   name: 'Myndveda',
   tagline: 'Mind, movement & learning — together.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://myndveda.com',
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_E164 || '919876543210',
-  whatsappDisplay: process.env.NEXT_PUBLIC_WHATSAPP_DISPLAY || '+91 98765 43210',
-  phone: '+91 98765 43210',
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_E164 || '918853936112',
+  whatsappDisplay: process.env.NEXT_PUBLIC_WHATSAPP_DISPLAY || '+91 88539 36112',
+  phone: '+91 88539 36112',
   supportEmail: 'hello@myndveda.com',
 }
 
