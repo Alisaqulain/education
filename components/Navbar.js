@@ -121,8 +121,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20 gap-4">
           <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0">
-            <div className="relative h-9 w-9 sm:h-11 sm:w-11">
-              <Image src="/logo.png" alt={SITE.name} fill className="object-contain group-hover:scale-105 transition-transform" priority />
+            <div className="relative h-11 w-11 sm:h-14 sm:w-14">
+              <Image src="/logo%20(2).jpeg" alt={SITE.name} fill className="object-contain group-hover:scale-105 transition-transform" priority />
             </div>
             <div className="leading-tight">
               <div className="text-base sm:text-lg font-black text-gray-900 tracking-tight">{SITE.name}</div>

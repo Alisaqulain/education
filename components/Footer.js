@@ -31,8 +31,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
           <div className="lg:col-span-4">
             <Link href="/" className="flex items-center gap-3 mb-4 group">
-              <div className="relative h-11 w-11">
-                <Image src="/logo.png" alt={`${SITE.name} logo`} fill className="object-contain group-hover:scale-105 transition-transform" />
+              <div className="relative h-14 w-14">
+                <Image src="/logo%20(2).jpeg" alt={`${SITE.name} logo`} fill className="object-contain group-hover:scale-105 transition-transform" />
               </div>
               <div>
                 <div className="text-white text-lg font-black leading-tight">{SITE.name}</div>

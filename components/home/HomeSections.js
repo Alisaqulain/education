@@ -79,8 +79,8 @@ export default function HomeSections() {
                 ))}
               </div>
               <div className="mt-6 rounded-2xl bg-gradient-to-r from-emerald-500/20 to-sky-500/20 border border-white/10 p-4 flex items-center gap-4">
-                <div className="relative h-14 w-14 rounded-2xl overflow-hidden border border-white/20 bg-white/10">
-                  <Image src="/logo.png" alt={SITE.name} fill className="object-contain p-1" />
+                <div className="relative h-[4.5rem] w-[4.5rem] rounded-2xl overflow-hidden border border-white/20 bg-white/10">
+                  <Image src="/logo%20(2).jpeg" alt={SITE.name} fill className="object-contain p-1" />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-white">{SITE.name} hub</p>
