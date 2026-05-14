@@ -315,11 +315,16 @@ export default function HomeSections() {
               Publish courses, schedule Zoom or Google Meet sessions, track attendance, and grow reviews — with payouts and
               subscriptions on Razorpay.
             </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <Link href="/become-a-teacher" className="btn-primary">
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
+              <Link href="/become-a-teacher" className="btn-primary inline-flex justify-center">
                 Register as teacher
               </Link>
-              <a href={waLink('Hi, I would like to schedule a demo call to teach with Myndveda.')} className="btn-secondary border-white text-white hover:bg-white/10">
+              <a
+                href={waLink('Hi, I would like to schedule a demo call to teach with Myndveda.')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-xl border-2 border-white/90 bg-white/10 px-6 py-3 text-sm font-bold text-white shadow-sm backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+              >
                 Schedule demo call
               </a>
             </div>
@@ -342,11 +347,14 @@ export default function HomeSections() {
         <div className="container-custom text-center max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-black mb-4">Start with a free demo this week</h2>
           <p className="text-white/75 mb-8">Pick a category, meet a teacher, and experience our live classroom.</p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link href="/courses" className="btn-primary">
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
+            <Link href="/courses" className="btn-primary inline-flex justify-center">
               Explore courses
             </Link>
-            <Link href="/demo-class" className="btn-secondary border-white text-white hover:bg-white/10">
+            <Link
+              href="/demo-class"
+              className="inline-flex items-center justify-center rounded-xl border-2 border-white/90 bg-white/10 px-6 py-3 text-sm font-bold text-white shadow-sm backdrop-blur-sm transition-all hover:bg-white/20 hover:border-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+            >
               Book free demo
             </Link>
           </div>
