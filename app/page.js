@@ -14,7 +14,7 @@ const HomeSections = dynamic(() => import('@/components/home/HomeSections'), {
 export const metadata = {
   title: `${SITE.name} — Learn smarter. Grow holistically.`,
   description:
-    'Complete development for students — academics, competitive exams, skills, creativity and sports. Live + offline + recorded, with parent dashboards and AI-assisted practice.',
+    'Learn anything, anywhere from expert teachers — academics, languages, performing arts, and tech. Live classes, recordings, demos, and Razorpay payments.',
   openGraph: {
     ...defaultOpenGraph,
     title: `${SITE.name} — Academics to athletics`,

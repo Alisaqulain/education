@@ -3,17 +3,21 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { createPortal } from 'react-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { programLinks, mainNav } from '@/data/navigation'
+import { mainNav } from '@/data/navigation'
+import { categoryMegaMenu } from '@/data/blueprintHome'
 import { SITE } from '@/data/site'
 
 export default function Navbar() {
+  const router = useRouter()
   const [mounted, setMounted] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [programsOpen, setProgramsOpen] = useState(false)
-  const [desktopPrograms, setDesktopPrograms] = useState(false)
+  const [desktopCategories, setDesktopCategories] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState(null)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
@@ -69,11 +73,11 @@ export default function Navbar() {
   useEffect(() => {
     const close = (e) => {
       if (userMenuOpen && !e.target.closest?.('.ei-user-menu')) setUserMenuOpen(false)
-      if (desktopPrograms && !e.target.closest?.('.ei-programs-wrap')) setDesktopPrograms(false)
+      if (desktopCategories && !e.target.closest?.('.ei-categories-wrap')) setDesktopCategories(false)
     }
     document.addEventListener('mousedown', close)
     return () => document.removeEventListener('mousedown', close)
-  }, [userMenuOpen, desktopPrograms])
+  }, [userMenuOpen, desktopCategories])
 
   const handleLogout = async () => {
     try {
@@ -119,69 +123,109 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20 gap-4">
-          <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0">
-            <div className="relative h-11 w-11 sm:h-14 sm:w-14">
+        <div className="flex items-center justify-between h-16 md:h-20 gap-2 sm:gap-3 lg:gap-4">
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0 min-w-0">
+            <div className="relative h-11 w-11 sm:h-14 sm:w-14 shrink-0">
               <Image src="/updatelogo.jpeg" alt={SITE.name} fill className="object-contain group-hover:scale-105 transition-transform" priority />
             </div>
-            <div className="leading-tight">
-              <div className="text-base sm:text-lg font-black text-gray-900 tracking-tight">{SITE.name}</div>
+            <div className="leading-tight min-w-0 hidden sm:block">
+              <div className="text-base sm:text-lg font-black text-gray-900 tracking-tight truncate">{SITE.name}</div>
               <div className="text-[10px] sm:text-xs text-gray-500 hidden sm:block">Mind · Movement · Learning</div>
             </div>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-6">
-            <NavLink href="/">Home</NavLink>
+          <form
+            className="hidden md:flex flex-1 max-w-[11rem] lg:max-w-[13rem] xl:max-w-md min-w-0 mx-1 lg:mx-3"
+            onSubmit={(e) => {
+              e.preventDefault()
+              const q = searchQuery.trim()
+              router.push(q ? `/courses?q=${encodeURIComponent(q)}` : '/courses')
+            }}
+            role="search"
+          >
+            <label htmlFor="ei-nav-search" className="sr-only">
+              Search courses
+            </label>
+            <div className="relative w-full">
+              <input
+                id="ei-nav-search"
+                type="search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search courses…"
+                className="w-full rounded-xl border border-gray-200 bg-white/90 py-2 pl-9 pr-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              />
+              <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" aria-hidden>
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </span>
+            </div>
+          </form>
+
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-5 shrink-0">
             <div
-              className="relative ei-programs-wrap"
-              onMouseEnter={() => setDesktopPrograms(true)}
-              onMouseLeave={() => setDesktopPrograms(false)}
+              className="relative ei-categories-wrap"
+              onMouseEnter={() => setDesktopCategories(true)}
+              onMouseLeave={() => setDesktopCategories(false)}
             >
               <button
                 type="button"
                 className="text-sm font-semibold text-gray-700 hover:text-primary flex items-center gap-1"
-                onClick={() => setDesktopPrograms((v) => !v)}
+                onClick={() => setDesktopCategories((v) => !v)}
               >
-                Programs
-                <span className={`text-xs transition-transform ${desktopPrograms ? 'rotate-180' : ''}`}>▾</span>
+                Categories
+                <span className={`text-xs transition-transform ${desktopCategories ? 'rotate-180' : ''}`}>▾</span>
               </button>
               <AnimatePresence>
-                {desktopPrograms ? (
+                {desktopCategories ? (
                   <motion.div
                     initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.18 }}
-                    className="absolute left-0 top-full mt-3 w-[min(640px,calc(100vw-3rem))] max-w-[calc(100vw-2rem)] rounded-2xl border border-gray-100 bg-white shadow-2xl p-6 grid grid-cols-2 gap-2"
+                    className="absolute right-0 xl:left-0 top-full mt-3 w-[min(920px,calc(100vw-2rem))] max-w-[calc(100vw-2rem)] rounded-2xl border border-gray-100 bg-white shadow-2xl p-6"
                   >
-                    {programLinks.map((p) => (
-                      <Link
-                        key={p.href}
-                        href={p.href}
-                        className="rounded-xl px-3 py-2 text-sm font-medium text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors"
-                        onClick={() => setDesktopPrograms(false)}
-                      >
-                        {p.label}
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                      {categoryMegaMenu.map((cat) => (
+                        <div key={cat.title}>
+                          <p className={`text-xs font-black uppercase tracking-wide bg-gradient-to-r ${cat.accent} bg-clip-text text-transparent`}>
+                            {cat.title}
+                          </p>
+                          <ul className="mt-3 space-y-1 max-h-52 overflow-y-auto pr-1">
+                            {cat.items.map((item) => (
+                              <li key={item.label}>
+                                <Link
+                                  href={item.href}
+                                  className="block rounded-lg px-2 py-1.5 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors"
+                                  onClick={() => setDesktopCategories(false)}
+                                >
+                                  {item.label}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-4 pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-3">
+                      <Link href="/programs" className="text-xs font-bold text-primary hover:underline" onClick={() => setDesktopCategories(false)}>
+                        All structured programs →
                       </Link>
-                    ))}
-                    <div className="col-span-2 mt-2 pt-4 border-t border-gray-100 flex items-center justify-between gap-3">
-                      <p className="text-xs text-gray-500">Need help choosing a track?</p>
-                      <Link href="/admissions" className="text-xs font-bold text-primary hover:underline" onClick={() => setDesktopPrograms(false)}>
-                        Talk to admissions →
+                      <Link href="/courses" className="text-xs font-semibold text-gray-600 hover:text-primary" onClick={() => setDesktopCategories(false)}>
+                        Browse course catalog
                       </Link>
                     </div>
                   </motion.div>
                 ) : null}
               </AnimatePresence>
             </div>
-            {mainNav.filter((n) => n.href !== '/').map((n) => (
-              <NavLink key={n.href} href={n.href}>
-                {n.label}
-              </NavLink>
-            ))}
+            <NavLink href="/teachers">Teachers</NavLink>
+            <NavLink href="/contact">Contact us</NavLink>
+            <NavLink href="/become-a-teacher">Become a teacher</NavLink>
           </nav>
 
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-2 shrink-0">
             {isLoggedIn && user ? (
               <div className="relative ei-user-menu">
                 <button
@@ -213,16 +257,18 @@ export default function Navbar() {
                 ) : null}
               </div>
             ) : (
-              <Link href="/student/login" className="text-sm font-semibold text-gray-700 hover:text-primary">
-                Login
-              </Link>
+              <>
+                <Link href="/student/login" className="text-sm font-semibold text-gray-700 hover:text-primary px-1 shrink-0">
+                  Login
+                </Link>
+                <Link
+                  href="/signup"
+                  className="rounded-xl bg-gradient-to-r from-primary to-secondary px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/25 hover:shadow-xl transition-all shrink-0"
+                >
+                  Sign up
+                </Link>
+              </>
             )}
-            <Link
-              href="/signup"
-              className="rounded-xl bg-gradient-to-r from-primary to-secondary px-5 py-2.5 text-sm font-bold text-white shadow-lg shadow-primary/25 hover:shadow-xl transition-all"
-            >
-              Join now
-            </Link>
           </div>
 
           <button
@@ -276,6 +322,27 @@ export default function Navbar() {
                       </button>
                     </div>
                     <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 py-3 space-y-0.5">
+                      <form
+                        className="mb-3 px-1"
+                        onSubmit={(e) => {
+                          e.preventDefault()
+                          const q = searchQuery.trim()
+                          setMobileOpen(false)
+                          router.push(q ? `/courses?q=${encodeURIComponent(q)}` : '/courses')
+                        }}
+                      >
+                        <label htmlFor="ei-mobile-search" className="sr-only">
+                          Search courses
+                        </label>
+                        <input
+                          id="ei-mobile-search"
+                          type="search"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          placeholder="Search courses…"
+                          className="w-full rounded-xl border border-gray-200 bg-white py-2.5 px-3 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                        />
+                      </form>
                       <Link
                         href="/"
                         onClick={() => setMobileOpen(false)}
@@ -283,30 +350,58 @@ export default function Navbar() {
                       >
                         Home
                       </Link>
+                      <Link
+                        href="/contact"
+                        onClick={() => setMobileOpen(false)}
+                        className="block rounded-xl px-3 py-3 text-base font-semibold text-gray-900 hover:bg-gray-50 active:bg-gray-100"
+                      >
+                        Contact us
+                      </Link>
+                      <Link
+                        href="/become-a-teacher"
+                        onClick={() => setMobileOpen(false)}
+                        className="block rounded-xl px-3 py-3 text-base font-semibold text-gray-900 hover:bg-gray-50 active:bg-gray-100"
+                      >
+                        Become a teacher
+                      </Link>
                       <button
                         type="button"
                         onClick={() => setProgramsOpen((v) => !v)}
                         className="flex w-full items-center justify-between rounded-xl px-3 py-3 text-left text-base font-semibold text-gray-900 hover:bg-gray-50 active:bg-gray-100"
                       >
-                        Programs
+                        Categories
                         <span className={`text-gray-500 transition-transform duration-200 ${programsOpen ? 'rotate-180' : ''}`}>▾</span>
                       </button>
                       {programsOpen ? (
-                        <div className="border-l-2 border-primary/25 ml-2 pl-2 space-y-0.5 pb-2">
-                          {programLinks.map((p) => (
-                            <Link
-                              key={p.href}
-                              href={p.href}
-                              onClick={() => setMobileOpen(false)}
-                              className="block rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 hover:bg-primary/5 hover:text-primary"
-                            >
-                              {p.label}
-                            </Link>
+                        <div className="border-l-2 border-primary/25 ml-2 pl-2 space-y-3 pb-2 max-h-[50vh] overflow-y-auto">
+                          {categoryMegaMenu.map((cat) => (
+                            <div key={cat.title}>
+                              <p className="px-3 pt-1 text-xs font-bold text-primary uppercase tracking-wide">{cat.title}</p>
+                              <div className="space-y-0.5 mt-1">
+                                {cat.items.map((item) => (
+                                  <Link
+                                    key={item.label}
+                                    href={item.href}
+                                    onClick={() => setMobileOpen(false)}
+                                    className="block rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-primary/5 hover:text-primary"
+                                  >
+                                    {item.label}
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
                           ))}
+                          <Link
+                            href="/programs"
+                            onClick={() => setMobileOpen(false)}
+                            className="block rounded-lg px-3 py-2 text-sm font-bold text-primary hover:underline"
+                          >
+                            All programs →
+                          </Link>
                         </div>
                       ) : null}
                       {mainNav
-                        .filter((n) => n.href !== '/')
+                        .filter((n) => !['/', '/contact', '/become-a-teacher'].includes(n.href))
                         .map((n) => (
                           <Link
                             key={n.href}
@@ -353,7 +448,7 @@ export default function Navbar() {
                         onClick={() => setMobileOpen(false)}
                         className="block w-full rounded-xl bg-gradient-to-r from-primary to-secondary py-3 text-center text-sm font-bold text-white shadow-md"
                       >
-                        Join now
+                        Sign up
                       </Link>
                     </div>
                   </motion.aside>

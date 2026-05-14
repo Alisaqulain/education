@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { programLinks, secondaryNav } from '@/data/navigation'
-import { SITE } from '@/data/site'
+import { SITE, waLink } from '@/data/site'
 
 const explore = [
   { href: '/results', label: 'Results' },
@@ -16,12 +16,14 @@ const explore = [
 ]
 
 const institute = [
-  { href: '/about', label: 'About' },
+  { href: '/about', label: 'About us' },
+  { href: '/meet-our-teachers', label: 'Meet our teachers' },
   { href: '/teachers', label: 'Teachers' },
   { href: '/careers', label: 'Careers' },
   { href: '/become-a-teacher', label: 'Become a teacher' },
   { href: '/franchise', label: 'Franchise' },
   { href: '/contact', label: 'Contact' },
+  { href: '/faq', label: 'Help & support' },
 ]
 
 export default function Footer() {
@@ -40,11 +42,29 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed max-w-md">
-              A full-stack learning ecosystem for boards, JEE, NEET, CUET, Olympiads, crash programs, skills, yoga, Zumba and sports — with transparent parent analytics.
+              One platform for academics, creativity, and future-ready skills — live classes, recordings, and parent-friendly
+              progress tracking.
             </p>
             <p className="mt-4 text-xs text-gray-500">
               {SITE.supportEmail} · {SITE.phone}
             </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <span className="text-xs font-bold uppercase tracking-wide text-gray-500">Social</span>
+              <a
+                href={waLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-300 hover:bg-emerald-500/20 transition-colors"
+              >
+                WhatsApp
+              </a>
+              <a
+                href={`mailto:${SITE.supportEmail}`}
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1.5 text-xs font-semibold text-gray-200 hover:bg-white/5 transition-colors"
+              >
+                Email
+              </a>
+            </div>
           </div>
 
           <div className="lg:col-span-3">

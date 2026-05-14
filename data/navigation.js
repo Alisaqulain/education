@@ -15,6 +15,7 @@ export const programLinks = [
 export const mainNav = [
   { href: '/', label: 'Home' },
   { href: '/programs', label: 'Programs' },
+  { href: '/meet-our-teachers', label: 'Meet teachers' },
   { href: '/teachers', label: 'Teachers' },
   { href: '/about', label: 'About' },
   { href: '/results', label: 'Results' },
